@@ -1,0 +1,113 @@
+---
+// "One gateway. Two databases. Every screen." Drawn in HTML so it reflows to a
+// single column on phones and follows the light/dark theme.
+import Icon from './Icon.astro';
+
+const inputs = [
+  { name: 'PLCs and meters', detail: 'Modbus TCP/RTU · S7 · EtherNet/IP' },
+  { name: 'OPC UA servers', detail: 'Changes pushed' },
+  { name: 'Edge devices', detail: 'MQTT Sparkplug B' },
+  { name: 'Edge gateways', detail: 'One outbound link per site' },
+];
+
+const modules = [
+  'Drivers and scan classes',
+  'Tags and templates',
+  'Alarms and on-call',
+  'Scripts, isolated worker',
+  'Node-RED',
+  'Applications',
+  'Reports',
+  'AI assistant',
+];
+
+const outputs = [
+  { icon: 'monitor-smartphone', name: 'Browsers', detail: 'Engineers and operators, any device' },
+  { icon: 'radio-tower', name: 'OPC UA clients', detail: 'Signed and encrypted endpoints' },
+  { icon: 'share-2', name: 'MQTT', detail: 'Sparkplug B or JSON / UNS' },
+  { icon: 'braces', name: 'REST API and webhooks', detail: 'OpenAPI 3.1 · HMAC-signed' },
+  { icon: 'table', name: 'SQL databases', detail: 'PostgreSQL, MySQL / MariaDB' },
+  { icon: 'sparkles', name: 'AI clients', detail: 'MCP server' },
+  { icon: 'mail', name: 'People on call', detail: 'Email, SMS, webhook' },
+];
+---
+
+<figure class="arch" aria-labelledby="arch-caption">
+  <div class="arch-grid">
+    <div class="arch-col">
+      <p class="arch-label">Plant floor</p>
+      <ul class="arch-list">
+        {
+          inputs.map((i) => (
+            <li>
+              <strong>{i.name}</strong>
+              <span>{i.detail}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <div class="arch-flow" aria-hidden="true">
+      <span class="arch-arrow"></span>
+      <small>Polled by scan class, or pushed on change</small>
+    </div>
+
+    <div class="arch-core">
+      <div class="arch-gateway">
+        <div class="arch-gateway-head">
+          <Icon name="server" size={18} />
+          <strong>Nexus gateway</strong>
+        </div>
+        <ul class="arch-modules">
+          {modules.map((m) => <li>{m}</li>)}
+        </ul>
+      </div>
+      <div class="arch-store">
+        <div class="arch-link" aria-hidden="true"></div>
+        <div class="arch-dbs">
+        <div class="arch-db">
+          <Icon name="database" size={18} />
+          <div>
+            <strong>QuestDB</strong>
+            <span>Fast raw history</span>
+          </div>
+        </div>
+        <div class="arch-db">
+          <Icon name="database" size={18} />
+          <div>
+            <strong>PostgreSQL + TimescaleDB</strong>
+            <span>Settings and long-term rollups</span>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+
+    <div class="arch-flow arch-guard">
+      <span class="arch-arrow" aria-hidden="true"></span>
+      <span class="arch-guard-pill"><Icon name="shield-check" size={16} /> Roles and audit log</span>
+    </div>
+
+    <div class="arch-col">
+      <p class="arch-label">Everyone else</p>
+      <ul class="arch-list arch-list-icons">
+        {
+          outputs.map((o) => (
+            <li>
+              <Icon name={o.icon} size={18} />
+              <div>
+                <strong>{o.name}</strong>
+                <span>{o.detail}</span>
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+  <figcaption id="arch-caption">
+    Devices feed the gateway. The gateway keeps history and settings in two databases and serves everyone else, through
+    one set of roles and one audit log.
+  </figcaption>
+</figure>

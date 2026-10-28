@@ -1,0 +1,97 @@
+---
+import Feature from '../layouts/Feature.astro';
+import Icon from '../components/Icon.astro';
+
+const points = [
+  {
+    title: 'Guardrails by design',
+    body: 'The assistant can search tags and create or update draft views. It cannot publish, write values, or change devices, alarms, scripts or users.',
+  },
+  {
+    title: 'Real tags only',
+    body: 'It binds only tags it found. Anything it could not find comes back as a warning, not a guess.',
+  },
+  {
+    title: 'Powered by Claude',
+    body: 'Built on Claude, from Anthropic, with a choice of model and effort. Usage is billed to the plant’s own API key, and every request is audited.',
+  },
+  {
+    title: 'MCP server',
+    body: 'Claude Desktop, Claude Code and your own agents can use the same tools, with read or write API keys.',
+  },
+  {
+    title: 'What leaves the plant, stated plainly',
+    body: 'Requests, and the tags, symbols and views the assistant reads, go to Anthropic’s API over HTTPS. Nothing else is sent to Anthropic.',
+  },
+];
+---
+
+<Feature
+  title="AI that builds HMI screens: Nexus IIoT"
+  description="Describe a screen and the assistant drafts it from your real tags. An engineer reviews and publishes."
+  headline="Describe the screen. Review the draft. Publish."
+  intro="Engineers describe a screen, and the assistant builds it from the plant's real tags as a draft view, showing each step it takes. An engineer reviews and publishes it like any other change."
+  points={points}
+  visual="assistant-recording"
+>
+  <section class="section-tight">
+    <div class="container">
+      <ol class="flow">
+        <li>
+          <small>01 · Engineer</small>
+          <strong>Describe the screen</strong>
+          <span>“An overview of every pump with its running state and fault.”</span>
+        </li>
+        <li>
+          <small>02 · Assistant</small>
+          <strong>Build the draft</strong>
+          <span>Searches the plant's tags and lays out a draft view, showing each step.</span>
+        </li>
+        <li>
+          <small>03 · Engineer</small>
+          <strong>Review and publish</strong>
+          <span>Like any other change, with a change list and a note. Operators see nothing until then.</span>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container grid-2">
+      <div class="detail">
+        <h3>What the assistant can and can't do</h3>
+        <p>Its tools are limited by design.</p>
+        <table class="spec">
+          <tbody>
+            <tr><th scope="row">Can</th><td>Search tags · create draft views · update draft views</td></tr>
+            <tr>
+              <th scope="row">Can't</th>
+              <td>Publish · write values · change devices, alarms, scripts or users</td>
+            </tr>
+            <tr><th scope="row">Audit</th><td>Every request, and every MCP tool call, is logged</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="detail">
+        <h3>What it needs</h3>
+        <p>Check these before you switch it on.</p>
+        <ul class="check-list">
+          <li>
+            <Icon name="globe" />
+            <p><strong>Internet access to Anthropic's API.</strong> The gateway calls it over HTTPS.</p>
+          </li>
+          <li>
+            <Icon name="key-round" />
+            <p><strong>The plant's own Anthropic API key.</strong> Usage is billed to it directly.</p>
+          </li>
+          <li>
+            <Icon name="eye" />
+            <p>
+              <strong>What is sent:</strong> your requests, and the tags, symbols and views the assistant reads. Nothing else.
+            </p>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</Feature>

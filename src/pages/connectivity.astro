@@ -1,0 +1,105 @@
+---
+import Feature from '../layouts/Feature.astro';
+
+const points = [
+  {
+    title: 'The protocols plants run',
+    body: 'Modbus TCP, Modbus RTU over serial, RTU over TCP, Siemens S7, EtherNet/IP, OPC UA client and MQTT Sparkplug B.',
+  },
+  {
+    title: 'Addresses as the manual prints them',
+    body: 'Type 40001, 400001 or HR1. Every data type from a single bit to 64-bit floats and strings, with byte order set per device or per tag.',
+  },
+  {
+    title: 'Efficient reads',
+    body: 'Tags are batched up to 125 registers per request. One bad address marks only its own tag bad, not the whole device.',
+  },
+  {
+    title: 'Scan classes',
+    body: 'Fast (250 ms), normal (1 s) and slow (5 s) by default, adjustable per device.',
+  },
+  {
+    title: 'Browse to build',
+    body: 'Browse an OPC UA server and turn its nodes into tags, or import tags from a CSV file.',
+  },
+];
+
+const protocols = [
+  ['Modbus TCP', 'Ethernet', 'Polled by scan class'],
+  ['Modbus RTU', 'Serial', 'Polled by scan class'],
+  ['Modbus RTU over TCP', 'Ethernet', 'Polled by scan class'],
+  ['Siemens S7', 'Ethernet', 'Polled by scan class'],
+  ['EtherNet/IP', 'Ethernet', 'Polled by scan class'],
+  ['OPC UA client', 'Ethernet', 'Device pushes changes'],
+  ['MQTT Sparkplug B', 'Ethernet, via a broker', 'Device pushes changes'],
+];
+---
+
+<Feature
+  title="PLC connectivity: Modbus, S7, EtherNet/IP, OPC UA"
+  description="Read and write PLCs over Modbus TCP/RTU, Siemens S7, EtherNet/IP, OPC UA and MQTT Sparkplug B."
+  headline="Talks to the equipment you already have."
+  intro="Nexus reads and writes PLCs, meters and edge devices over the protocols plants actually run. Polled devices are read by scan class, and OPC UA and MQTT devices push their changes."
+  points={points}
+  visual="device-list"
+>
+  <section class="section-tight">
+    <div class="container grid-2">
+      <div class="detail">
+        <h3>One register, three ways to write it</h3>
+        <p>Copy the address straight from the device manual. Nexus reads it the same way.</p>
+        <table class="spec">
+          <thead>
+            <tr><th scope="col">You type</th><th scope="col">Nexus reads</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="mono">40001</td><td>Holding register 1</td></tr>
+            <tr><td class="mono">400001</td><td>Holding register 1</td></tr>
+            <tr><td class="mono">HR1</td><td>Holding register 1</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="detail">
+        <h3>Default scan classes</h3>
+        <p>Each device is read on a scan class. Adjust the rates per device.</p>
+        <table class="spec">
+          <thead>
+            <tr><th scope="col">Scan class</th><th scope="col">Rate</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">Fast</th><td class="mono">250 ms</td></tr>
+            <tr><th scope="row">Normal</th><td class="mono">1 s</td></tr>
+            <tr><th scope="row">Slow</th><td class="mono">5 s</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container">
+      <div class="detail">
+        <h3>Drivers at a glance</h3>
+        <p>Polled devices are read on their scan class. OPC UA and MQTT devices push their changes.</p>
+        <div class="table-scroll">
+          <table class="spec">
+            <thead>
+              <tr><th scope="col">Protocol</th><th scope="col">Connection</th><th scope="col">How values arrive</th></tr>
+            </thead>
+            <tbody>
+              {
+                protocols.map(([name, link, how]) => (
+                  <tr>
+                    <th scope="row">{name}</th>
+                    <td>{link}</td>
+                    <td>{how}</td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+</Feature>

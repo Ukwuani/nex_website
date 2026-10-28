@@ -1,0 +1,150 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import SectionHead from '../components/SectionHead.astro';
+import ArchitectureDiagram from '../components/ArchitectureDiagram.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { site } from '../config';
+import { url } from '../lib/url';
+
+const installs = [
+  {
+    icon: 'container',
+    name: 'Docker',
+    rows: [
+      ['Runs on', 'Linux, macOS, Windows (WSL2)'],
+      ['Databases', 'Included'],
+      ['Installed with', 'One script that asks three questions'],
+      ['Managed with', 'nexusctl: status, logs, backup, upgrade'],
+    ],
+  },
+  {
+    icon: 'terminal',
+    name: 'Linux',
+    rows: [
+      ['Runs on', 'Linux with systemd'],
+      ['Databases', 'Bring your own, or start the bundled ones'],
+      ['Installed with', 'Release archive and install.sh'],
+      ['Managed with', 'systemctl and the nexus CLI'],
+    ],
+  },
+  {
+    icon: 'app-window',
+    name: 'Windows',
+    rows: [
+      ['Runs on', 'Windows 10/11, Server 2016 or later, x64'],
+      ['Databases', 'Bring your own'],
+      ['Installed with', 'Setup wizard, or unattended with /S'],
+      ['Managed with', 'Windows Services and the nexus CLI'],
+    ],
+  },
+];
+---
+
+<Base
+  title="How Nexus works: architecture and installation"
+  description="One gateway, two databases, every screen. See how Nexus connects devices, keeps history and installs on Docker, Linux or Windows."
+>
+  <section class="page-hero">
+    <div class="container">
+      <p class="eyebrow eyebrow-icon"><Icon name="network" size={18} /> How it works</p>
+      <h1>One gateway. Two databases. Every screen.</h1>
+      <p class="lead">
+        Devices feed the gateway. The gateway keeps history and settings in two databases and serves everyone else.
+        Everything a person or system sees passes through the same roles and audit log.
+      </p>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container">
+      <ArchitectureDiagram />
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="install-title">
+    <div class="container">
+      <SectionHead
+        id="install-title"
+        eyebrow="Install your way"
+        title="One script, or a setup wizard"
+        lead="Upgrades keep your settings and run database migrations on start. Back up the whole configuration as one project file."
+      />
+      <div class="install">
+        {
+          installs.map((i) => (
+            <article class="install-tile">
+              <header>
+                <span class="card-icon">
+                  <Icon name={i.icon} />
+                </span>
+                <h3>{i.name}</h3>
+              </header>
+              <dl>
+                {i.rows.map(([k, v]) => (
+                  <>
+                    <dt>{k}</dt>
+                    <dd>{v}</dd>
+                  </>
+                ))}
+              </dl>
+            </article>
+          ))
+        }
+      </div>
+      <ul class="notes">
+        <li>
+          <Icon name="info" size={16} />
+          <span>On macOS, Nexus runs in Docker. The native installers are for Linux and Windows.</span>
+        </li>
+        <li>
+          <Icon name="info" size={16} />
+          <span>
+            A redundant pair shares one database, so it needs an external one. The Docker installer bundles a database per
+            install.
+          </span>
+        </li>
+        <li>
+          <Icon name="info" size={16} />
+          <span>The Windows installer is not code-signed yet, so Windows SmartScreen shows a warning when you run it.</span>
+        </li>
+      </ul>
+      <p style="margin-top: 24px">
+        <a class="text-link" href={url(site.deploymentGuideUrl)}>Read the deployment guide <Icon name="arrow-right" size={16} /></a>
+      </p>
+    </div>
+  </section>
+
+  <section class="section section-alt" aria-labelledby="projects-title">
+    <div class="container split">
+      <div>
+        <p class="eyebrow">Moving between gateways</p>
+        <h2 id="projects-title">The whole configuration in one file</h2>
+        <p class="lead" style="margin-top: 16px">
+          A project is the whole configuration as one JSON file. Keep it in git, see what changed with a diff, and
+          move it from one gateway to another.
+        </p>
+      </div>
+      <ol class="flow" style="grid-template-columns: 1fr">
+        <li>
+          <small>01 · Preview</small>
+          <strong>See exactly what will change</strong>
+          <span>An import lists every change before anything is applied.</span>
+        </li>
+        <li>
+          <small>02 · Apply</small>
+          <strong>One transaction</strong>
+          <span>The import applies completely, or not at all.</span>
+        </li>
+        <li>
+          <small>03 · Keep</small>
+          <strong>Nothing lost on the target</strong>
+          <span>An import never deletes what only exists on the target gateway.</span>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <div class="section-tight"></div>
+  <CtaBand />
+</Base>

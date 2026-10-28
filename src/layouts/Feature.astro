@@ -1,0 +1,134 @@
+---
+// Shared layout for the eight feature pages and the audience pages: headline,
+// two-sentence intro, proof points, then one large visual. Page-specific detail
+// goes in the default slot, after the visual. Feature pages end with previous/
+// next links; audience pages pass `related` instead.
+import Base from './Base.astro';
+import Icon from '../components/Icon.astro';
+import Shot from '../components/Shot.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { productPages, audiencePages, type ProductPage } from '../data/product';
+import type { VisualId } from '../data/visuals';
+import { site } from '../config';
+import { url } from '../lib/url';
+
+interface Point {
+  title: string;
+  body: string;
+}
+
+interface Props {
+  title: string;
+  description: string;
+  headline: string;
+  intro: string;
+  points: Point[];
+  visual?: VisualId;
+  related?: ProductPage[];
+}
+
+const { title, description, headline, intro, points, visual, related } = Astro.props;
+const index = productPages.findIndex((p) => url(p.href) === Astro.url.pathname);
+const isFeature = index >= 0;
+const page = isFeature ? productPages[index] : audiencePages.find((p) => url(p.href) === Astro.url.pathname)!;
+const prev = productPages[index - 1];
+const next = productPages[index + 1];
+---
+
+<Base title={title} description={description}>
+  <section class="page-hero">
+    <div class="container">
+      <p class="eyebrow eyebrow-icon"><Icon name={page.icon} size={18} /> {page.name}</p>
+      <h1>{headline}</h1>
+      <p class="lead">{intro}</p>
+      <div class="actions">
+        <a class="btn btn-primary" href={url('/demo/')}>Book a demo</a>
+        <a class="btn btn-secondary" href={url(site.docsUrl)}>Read the docs</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight" aria-labelledby="points-title">
+    <div class="container">
+      <h2 id="points-title" class="sr-only">In detail</h2>
+      <ol class="points">
+        {
+          points.map((p) => (
+            <li>
+              <h3>{p.title}</h3>
+              <p>{p.body}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container">
+      <slot name="visual">{visual && <Shot id={visual} />}</slot>
+    </div>
+  </section>
+
+  <slot />
+
+  {
+    related && (
+      <section class="section-tight" aria-labelledby="related-title">
+        <div class="container">
+          <h2 id="related-title" class="eyebrow">
+            Go deeper
+          </h2>
+          <ul class="related">
+            {related.map((r) => (
+              <li>
+                <a class="card" href={url(r.href)}>
+                  <h3>
+                    <Icon name={r.icon} size={18} /> {r.name}
+                  </h3>
+                  <p>{r.blurb}</p>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+    )
+  }
+
+  {
+    isFeature && (
+      <nav class="section-tight page-nav" aria-label="More of the product">
+        <div class="container page-nav-inner">
+          {prev ? (
+            <a class="page-nav-link" href={url(prev.href)}>
+              <small>Previous</small>
+              <span>
+                <Icon name="arrow-left" size={18} /> {prev.name}
+              </span>
+            </a>
+          ) : (
+            <span />
+          )}
+          {next ? (
+            <a class="page-nav-link next" href={url(next.href)}>
+              <small>Next</small>
+              <span>
+                {next.name} <Icon name="arrow-right" size={18} />
+              </span>
+            </a>
+          ) : (
+            <a class="page-nav-link next" href={url('/how-it-works/')}>
+              <small>Next</small>
+              <span>
+                How it works <Icon name="arrow-right" size={18} />
+              </span>
+            </a>
+          )}
+        </div>
+      </nav>
+    )
+  }
+
+  <CtaBand />
+</Base>

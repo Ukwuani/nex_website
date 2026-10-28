@@ -1,0 +1,68 @@
+---
+import Feature from '../layouts/Feature.astro';
+import Shot from '../components/Shot.astro';
+import Icon from '../components/Icon.astro';
+
+const points = [
+  {
+    title: 'Parameters',
+    body: 'Text, number, whole number and true/false parameters fill in addresses, units, expressions, alarm setpoints and devices.',
+  },
+  {
+    title: 'Nested templates and inheritance',
+    body: 'Put a Motor inside a Pump. Make a VFD Pump that extends Pump and adds only what is different.',
+  },
+  {
+    title: 'Overrides per instance',
+    body: 'Give one instance different units, scaling, address, device or setpoint. Each override is marked, and can be reset to the template.',
+  },
+  {
+    title: 'Create several at once',
+    body: 'P-{n} from 101 to 140, or paste a CSV. Every row is checked first, and all are created or none.',
+  },
+  {
+    title: 'Renames keep everything',
+    body: 'Rename a member and it keeps its tags, alarm rules, scripts and history.',
+  },
+  {
+    title: 'Five tag types',
+    body: 'Device, memory, expression, reference and query tags. A query tag runs SQL against another database.',
+  },
+  {
+    title: 'Asset hierarchy',
+    body: "Sites, areas and equipment, with each user's access limited to their part of the plant.",
+  },
+];
+---
+
+<Feature
+  title="UDT templates for equipment: Nexus IIoT"
+  description="Model a pump once and create forty, with parameters, nested templates and per-instance overrides."
+  headline="Model a pump once. Get forty."
+  intro="A template describes a piece of equipment once: its tags, alarms, scripts and parameters. Every instance gets its own folder of tags, and a change to the template reaches every instance."
+  points={points}
+  visual="template-overrides"
+>
+  <section class="section-tight">
+    <div class="container split split-reverse">
+      <div class="stack">
+        <div>
+          <p class="eyebrow">Create several</p>
+          <h2>Forty pumps, one step</h2>
+        </div>
+        <p class="lead">Give a pattern and a range, or paste a CSV. Nexus checks every row before it creates anything.</p>
+        <div class="code-line" aria-label="Pattern P-{n} from 101 to 140 creates P-101 to P-140">
+          <span>P-&#123;n&#125;</span>
+          <span class="muted">from</span> 101 <span class="muted">to</span> 140
+          <Icon name="arrow-right" size={16} />
+          <span class="tag-id">P-101</span> … <span class="tag-id">P-140</span>
+        </div>
+        <p class="note">
+          <Icon name="info" size={18} />
+          <span>All rows are created, or none are. A typo on row 37 never leaves you with 36 pumps to clean up.</span>
+        </p>
+      </div>
+      <Shot id="create-several" />
+    </div>
+  </section>
+</Feature>

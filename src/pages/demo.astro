@@ -1,0 +1,112 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import { site } from '../config';
+import { url } from '../lib/url';
+
+const roles = [
+  'Controls / automation engineer',
+  'System integrator',
+  'Operations / plant management',
+  'IT / OT security',
+  'Data / digital team',
+  'Other',
+];
+
+const protocols = ['Modbus TCP', 'Modbus RTU', 'Siemens S7', 'EtherNet/IP', 'OPC UA', 'MQTT Sparkplug B'];
+
+const agenda = [
+  { icon: 'plug', title: 'Your devices, connected', text: 'Addresses from your device list, read the way the manual prints them.' },
+  { icon: 'boxes', title: 'Your equipment, modelled', text: 'A template for one piece of your equipment, then as many instances as you have.' },
+  { icon: 'monitor-smartphone', title: 'Screens and alarms on it', text: 'An operator view and alarm rules built on those tags.' },
+  { icon: 'shield-check', title: 'Your questions', text: 'Security, redundancy and installation, in as much detail as you need.' },
+];
+---
+
+<Base title="Book a demo: Nexus IIoT" description="See templates, screens and alarms built on your own device list.">
+  <section class="page-hero">
+    <div class="container split">
+      <div>
+        <p class="eyebrow">Book a demo</p>
+        <h1>See your plant in Nexus.</h1>
+        <p class="lead">Bring a device list and we'll show you templates, screens and alarms built on it.</p>
+        <ul class="check-list" style="margin-top: 32px">
+          {
+            agenda.map((a) => (
+              <li>
+                <Icon name={a.icon} />
+                <p>
+                  <strong>{a.title}.</strong> {a.text}
+                </p>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <form class="form" method="post" action={site.demoFormAction || undefined} data-demo-form>
+        <div class="form-row">
+          <div class="field">
+            <label for="name">Name</label>
+            <input id="name" name="name" autocomplete="name" required />
+          </div>
+          <div class="field">
+            <label for="email">Work email</label>
+            <input id="email" name="email" type="email" autocomplete="email" required />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="field">
+            <label for="company">Company</label>
+            <input id="company" name="company" autocomplete="organization" required />
+          </div>
+          <div class="field">
+            <label for="role">Your role</label>
+            <select id="role" name="role">
+              {roles.map((r) => <option>{r}</option>)}
+            </select>
+          </div>
+        </div>
+        <fieldset class="field">
+          <legend>Protocols on your site <span class="hint">(optional)</span></legend>
+          <div class="checks">
+            {
+              protocols.map((p) => (
+                <label class="check">
+                  <input type="checkbox" name="protocols" value={p} />
+                  <span>{p}</span>
+                </label>
+              ))
+            }
+          </div>
+        </fieldset>
+        <div class="field">
+          <label for="devices">What's on your device list? <span class="hint">(optional)</span></label>
+          <textarea
+            id="devices"
+            name="devices"
+            placeholder="For example: 12 pumps on Modbus TCP, two S7 PLCs, an OPC UA server on the dosing skid"
+          ></textarea>
+        </div>
+        <button class="btn btn-primary btn-lg" type="submit">Book a demo</button>
+        <p class="form-status" role="status" hidden data-form-status></p>
+        <p class="small-print">
+          We use these details only to arrange your demo. See the <a href={url('/privacy/')}>privacy policy</a>.
+        </p>
+      </form>
+    </div>
+  </section>
+</Base>
+
+<script>
+  // Until a form endpoint is configured (site.demoFormAction in src/config.ts),
+  // say so plainly rather than appear to send the request.
+  const form = document.querySelector<HTMLFormElement>('[data-demo-form]')!;
+  const status = form.querySelector<HTMLElement>('[data-form-status]')!;
+  form.addEventListener('submit', (e) => {
+    if (form.getAttribute('action')) return;
+    e.preventDefault();
+    status.hidden = false;
+    status.textContent = 'Demo requests are not connected yet, so nothing was sent.';
+  });
+</script>

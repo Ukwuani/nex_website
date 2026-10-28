@@ -1,0 +1,66 @@
+---
+import Feature from '../layouts/Feature.astro';
+import MultiSiteDiagram from '../components/MultiSiteDiagram.astro';
+
+const points = [
+  {
+    title: 'OPC UA server',
+    body: 'Every tag, with signed and encrypted endpoints, and the same users and roles as the rest of Nexus.',
+  },
+  {
+    title: 'MQTT',
+    body: 'Publish as a Sparkplug B edge node, or as JSON topics per tag for a unified namespace.',
+  },
+  {
+    title: 'REST API and webhooks',
+    body: 'REST API v1 with an OpenAPI 3.1 spec, plus HMAC-signed webhooks for alarms and value changes.',
+  },
+  {
+    title: 'SQL bridge',
+    body: 'Log rows of tag values to PostgreSQL or MySQL/MariaDB, on a schedule or a trigger, buffered through outages.',
+  },
+  {
+    title: 'Gateway network',
+    body: 'Edges share tags, history, alarms and, if allowed, writes with a central gateway. History waits on disk while the link is down, so the central has no gaps.',
+  },
+  {
+    title: 'Projects',
+    body: 'The whole configuration as one JSON file, previewed before import and diffable in git.',
+  },
+];
+---
+
+<Feature
+  title="OPC UA, MQTT, REST and UNS: Nexus IIoT"
+  description="Share plant data over OPC UA, MQTT Sparkplug B or JSON UNS, a REST API, webhooks and SQL."
+  headline="Your data, wherever it needs to go."
+  intro="Everything Nexus collects can be shared onward, live, without extra software. Sites link edge gateways to a central one over a single outbound connection."
+  points={points}
+>
+  <MultiSiteDiagram slot="visual" />
+
+  <section class="section-tight">
+    <div class="container">
+      <div class="detail">
+        <h3>Every way out, at a glance</h3>
+        <p>Share plant data onward with nothing extra to install.</p>
+        <div class="table-scroll">
+          <table class="spec">
+            <thead>
+              <tr><th scope="col">Interface</th><th scope="col">Details</th></tr>
+            </thead>
+            <tbody>
+              <tr><th scope="row">OPC UA server</th><td>Sign and SignAndEncrypt endpoints, anonymous access off by default</td></tr>
+              <tr><th scope="row">MQTT</th><td>Sparkplug B edge node, or JSON topics per tag (UNS)</td></tr>
+              <tr><th scope="row">REST API</th><td>v1, OpenAPI 3.1 spec</td></tr>
+              <tr><th scope="row">Webhooks</th><td>HMAC-signed, for alarms and value changes</td></tr>
+              <tr><th scope="row">SQL bridge</th><td>PostgreSQL, MySQL/MariaDB, on a schedule or a trigger</td></tr>
+              <tr><th scope="row">Node-RED</th><td>Embedded, with Nexus nodes for tags, alarms and notifications</td></tr>
+              <tr><th scope="row">MCP server</th><td>For Claude Desktop, Claude Code and your own agents</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+</Feature>

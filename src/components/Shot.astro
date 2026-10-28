@@ -1,0 +1,73 @@
+---
+// A product screenshot or recording in a simple frame, cropped to what the
+// page is discussing. Shows a labelled placeholder until the file is delivered
+// (see src/data/visuals.ts).
+import { resolveVisual } from '../lib/shots';
+import type { VisualId } from '../data/visuals';
+
+interface Props {
+  id: VisualId;
+  caption?: string;
+  /** Loops play on their own; longer recordings get controls. */
+  loop?: boolean;
+  eager?: boolean;
+  class?: string;
+}
+
+const { id, caption, loop = false, eager = false, class: className } = Astro.props;
+const { visual, image, video, ready } = resolveVisual(id);
+---
+
+<figure class:list={['shot', className]}>
+  <div class="shot-frame">
+    <div class="shot-bar" aria-hidden="true"><i></i><i></i><i></i></div>
+    <div class:list={['shot-media', { 'is-placeholder': !ready }]} style={ready ? undefined : `aspect-ratio: ${visual.aspect}`}>
+      {
+        image && (
+          <picture>
+            {image.dark && <source srcset={image.dark} media="(prefers-color-scheme: dark)" />}
+            <img
+              src={image.src}
+              width={image.width}
+              height={image.height}
+              alt={visual.alt}
+              loading={eager ? 'eager' : 'lazy'}
+              decoding="async"
+            />
+          </picture>
+        )
+      }
+      {
+        video && (
+          <video
+            aria-label={visual.alt}
+            poster={video.poster}
+            muted
+            playsinline
+            preload="metadata"
+            autoplay={loop}
+            loop={loop}
+            controls={!loop}
+          >
+            {video.webm && <source src={video.webm} type="video/webm" />}
+            {video.mp4 && <source src={video.mp4} type="video/mp4" />}
+            {video.captions && <track kind="captions" src={video.captions} srclang="en" label="English" default />}
+          </video>
+        )
+      }
+      {
+        !ready && (
+          <div class="shot-placeholder" role="img" aria-label={`Placeholder: ${visual.alt}`}>
+            <span class="ph-kind">{visual.kind === 'video' ? 'Recording to come' : 'Screenshot to come'}</span>
+            <strong>{visual.title}</strong>
+            <span class="ph-shows">{visual.shows}</span>
+            <code>
+              shots/{id}.{visual.kind === 'video' ? 'webm' : 'png'} · {visual.format}
+            </code>
+          </div>
+        )
+      }
+    </div>
+  </div>
+  {caption && <figcaption>{caption}</figcaption>}
+</figure>

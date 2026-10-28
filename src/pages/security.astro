@@ -1,0 +1,167 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import Shot from '../components/Shot.astro';
+import SectionHead from '../components/SectionHead.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { site } from '../config';
+import { url } from '../lib/url';
+
+const security = [
+  {
+    icon: 'log-in',
+    area: 'Sign-in',
+    text: 'OpenID Connect (Entra ID, Okta, Google, Keycloak), SAML 2.0 (Entra ID, ADFS, Okta), and Active Directory / LDAP, with groups mapped to roles. Administrators can keep a password route in for when the identity provider is down.',
+  },
+  {
+    icon: 'users',
+    area: 'Roles',
+    text: 'View, Operate, Acknowledge, Engineer, Manage scripts and Administer, combined into custom roles. Access can be limited to parts of the plant.',
+  },
+  {
+    icon: 'lock',
+    area: 'Transport',
+    text: "HTTPS on by default, TLS 1.2 or later. Certificate requests are made on the gateway for the plant's own CA, and the key never leaves it.",
+  },
+  {
+    icon: 'scroll-text',
+    area: 'Audit',
+    text: 'Sign-ins, configuration changes, writes (from the web, OPC UA and the API), AI requests and MCP tool calls are all logged.',
+  },
+  {
+    icon: 'key-round',
+    area: 'Secrets',
+    text: 'Script secrets are encrypted with AES-256-GCM, write-only, and masked in every log. API keys are stored only as hashes.',
+  },
+  {
+    icon: 'box',
+    area: 'Isolation',
+    text: "Custom widgets run sandboxed with no network access. Node-RED can't install packages unless the settings file allows it.",
+  },
+  {
+    icon: 'shield',
+    area: 'Attack surface',
+    text: 'Brute-force lockouts per account and address, API rate limits, a strict Content Security Policy, and outbound-only links from edge sites.',
+  },
+  {
+    icon: 'radio-tower',
+    area: 'OPC UA',
+    text: 'Sign and SignAndEncrypt endpoints, client certificates trusted explicitly, anonymous access off by default.',
+  },
+];
+
+const reliability = [
+  {
+    icon: 'server',
+    title: 'Active/standby redundancy.',
+    text: 'Two gateways share one database. The standby takes over within seconds of a crash, or after 15 seconds if the active hangs.',
+  },
+  {
+    icon: 'hard-drive-download',
+    title: 'No lost history.',
+    text: 'Values are buffered to disk while a database or a central link is down, then written in order.',
+  },
+  {
+    icon: 'box',
+    title: 'Faults are contained.',
+    text: 'Scripts, Node-RED and native drivers each run apart from the main gateway, and restart on their own if they fail.',
+  },
+  {
+    icon: 'refresh-cw',
+    title: 'A watchdog and a memory guard.',
+    text: 'They restart the gateway in an orderly way rather than let it hang or run out of memory.',
+  },
+  {
+    icon: 'bell-ring',
+    title: 'Health alarms built in.',
+    text: 'Disk space, certificate expiry and clock drift alarm out of the box.',
+  },
+  {
+    icon: 'activity',
+    title: 'Monitoring.',
+    text: 'Prometheus metrics, plus health and readiness endpoints for load balancers.',
+  },
+  {
+    icon: 'zap',
+    title: 'Tested under fault.',
+    text: 'A soak test kills drivers, scripts, Node-RED and the gateway itself in turn, and times each recovery.',
+  },
+];
+---
+
+<Base
+  title="Security and redundancy: Nexus IIoT"
+  description="Single sign-on, HTTPS with your CA, audit log, active/standby redundancy and store-and-forward history."
+>
+  <section class="page-hero">
+    <div class="container">
+      <p class="eyebrow eyebrow-icon"><Icon name="shield-check" size={18} /> Security and reliability</p>
+      <h1>Built for the plant network. Reviewed like it.</h1>
+      <p class="lead">
+        Nexus runs on your servers, signs people in with your directory, and keeps the plant running when parts of it
+        fail. Here is exactly how.
+      </p>
+      <div class="actions">
+        {
+          site.securityOverviewPdf && (
+            <a class="btn btn-primary" href={url(site.securityOverviewPdf)} download>
+              <Icon name="file-down" size={18} /> Download the security overview
+            </a>
+          )
+        }
+        <a class:list={['btn', site.securityOverviewPdf ? 'btn-secondary' : 'btn-primary']} href={url(site.deploymentGuideUrl)}>
+          Read the deployment guide
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight" aria-labelledby="security-title">
+    <div class="container">
+      <SectionHead id="security-title" eyebrow="Security" title="What Nexus does, area by area" />
+      <table class="sec-table">
+        <tbody>
+          {
+            security.map((s) => (
+              <tr>
+                <th scope="row">
+                  <Icon name={s.icon} />
+                  {s.area}
+                </th>
+                <td>{s.text}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="reliability-title">
+    <div class="container">
+      <SectionHead
+        id="reliability-title"
+        eyebrow="Reliability"
+        title="Keeps running when parts of it fail"
+        lead="Here is what happens when something fails, and how you will know."
+      />
+      <div class="split">
+        <ul class="check-list">
+          {
+            reliability.map((r) => (
+              <li>
+                <Icon name={r.icon} />
+                <p>
+                  <strong>{r.title}</strong> {r.text}
+                </p>
+              </li>
+            ))
+          }
+        </ul>
+        <Shot id="system-health" />
+      </div>
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>

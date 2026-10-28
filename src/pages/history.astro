@@ -1,0 +1,67 @@
+---
+import Feature from '../layouts/Feature.astro';
+import Shot from '../components/Shot.astro';
+import Icon from '../components/Icon.astro';
+
+const points = [
+  {
+    title: 'Two-tier historian',
+    body: 'QuestDB for fast raw history. PostgreSQL with TimescaleDB for long-term rollups.',
+  },
+  {
+    title: 'No gaps',
+    body: 'While a database is down, history is buffered to disk, then written in order when it returns.',
+  },
+  {
+    title: 'Trends across any period',
+    body: 'Plot any tags over any period, on screen and in reports.',
+  },
+  {
+    title: 'Reports',
+    body: 'Built-in alarm and shift reports, plus your own templates built from blocks.',
+  },
+  {
+    title: 'Schedules',
+    body: 'Mon–Fri at 06:00, 14:00 and 22:00, by email, to a network share or to a web upload. Daylight saving is handled, and each run happens exactly once, even across a failover.',
+  },
+];
+
+const blocks = ['Alarm tables', 'Statistics', 'Top alarming tags', 'Device connectivity', 'Trend charts'];
+---
+
+<Feature
+  title="Industrial historian and reports: Nexus IIoT"
+  description="Every tag value recorded, trended and turned into scheduled shift reports by email or to a share."
+  headline="Every value kept. Every shift reported."
+  intro="Every tag value is recorded, numbers, booleans and text alike, in a fast raw store with long-term rollups. Reports turn that history into PDFs that deliver themselves."
+  points={points}
+  visual="trend"
+>
+  <section class="section-tight" id="reports">
+    <div class="container split">
+      <div class="stack">
+        <div>
+          <p class="eyebrow">Reports</p>
+          <h2>Shift reports that send themselves</h2>
+        </div>
+        <p class="lead">Pick a report, set a schedule, choose where it goes. Each run happens exactly once.</p>
+        <div class="code-line" aria-label="Monday to Friday at 06:00, 14:00 and 22:00">
+          <Icon name="calendar-clock" size={16} />
+          Mon–Fri · 06:00 · 14:00 · 22:00
+        </div>
+        <ul class="chips" aria-label="Delivery">
+          <li class="chip"><Icon name="mail" size={14} /> Email</li>
+          <li class="chip"><Icon name="folder" size={14} /> Network share</li>
+          <li class="chip"><Icon name="upload" size={14} /> Web upload</li>
+        </ul>
+        <div>
+          <h3 style="margin-bottom: 10px">Blocks for custom reports</h3>
+          <ul class="chips">
+            {blocks.map((b) => <li class="chip">{b}</li>)}
+          </ul>
+        </div>
+      </div>
+      <Shot id="shift-report" />
+    </div>
+  </section>
+</Feature>

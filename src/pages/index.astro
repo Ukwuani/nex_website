@@ -1,0 +1,366 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import Shot from '../components/Shot.astro';
+import DeviceComposite from '../components/DeviceComposite.astro';
+import SectionHead from '../components/SectionHead.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { site } from '../config';
+import { url } from '../lib/url';
+
+const protocols = ['Modbus TCP and RTU', 'Siemens S7', 'EtherNet/IP', 'OPC UA', 'MQTT Sparkplug B'];
+
+const features = [
+  {
+    icon: 'boxes',
+    kicker: 'Templates',
+    link: 'More on templates',
+    title: 'Build it once',
+    body: 'Parameters, nested templates and overrides, with a change reaching every instance.',
+    href: '/templates/',
+  },
+  {
+    icon: 'monitor-smartphone',
+    kicker: 'Applications',
+    link: 'More on applications',
+    title: 'Screens on any device',
+    body: 'Full-screen operator apps with drafts, versions and one-click rollback.',
+    href: '/applications/',
+  },
+  {
+    icon: 'bell-ring',
+    kicker: 'Alarms',
+    link: 'More on alarms',
+    title: 'The right person, every time',
+    body: 'On-call rosters, timed escalation and acknowledge-from-the-message.',
+    href: '/alarms/',
+  },
+  {
+    icon: 'chart-line',
+    kicker: 'History',
+    link: 'More on history',
+    title: 'Every value, kept',
+    body: 'Fast raw history, long-term rollups, and trends across any period.',
+    href: '/history/',
+  },
+  {
+    icon: 'file-text',
+    kicker: 'Reports',
+    link: 'More on reports',
+    title: 'Shift reports that send themselves',
+    body: 'Scheduled PDFs by email, to a network share or to a web upload.',
+    href: '/history/#reports',
+  },
+  {
+    icon: 'sparkles',
+    kicker: 'AI assistant',
+    link: 'More on the AI assistant',
+    title: 'Describe the screen',
+    body: 'The assistant drafts views from your real tags; an engineer publishes.',
+    href: '/ai-assistant/',
+  },
+];
+
+const integrations = [
+  { icon: 'radio-tower', title: 'OPC UA server', body: 'Every tag, with signed and encrypted endpoints.' },
+  { icon: 'share-2', title: 'MQTT', body: 'Sparkplug B, or JSON topics per tag for a unified namespace.' },
+  { icon: 'braces', title: 'REST API', body: 'Version 1, described by an OpenAPI 3.1 spec.' },
+  { icon: 'webhook', title: 'Signed webhooks', body: 'HMAC-signed calls for alarms and value changes.' },
+  { icon: 'table', title: 'SQL bridge', body: 'Log tag values to PostgreSQL or MySQL/MariaDB.' },
+  { icon: 'workflow', title: 'Node-RED', body: 'Embedded, with Nexus nodes for tags, alarms and notifications.' },
+  { icon: 'cpu', title: 'MCP server', body: 'Claude and your own agents use the same tools, with read or write API keys.' },
+];
+
+const trust = [
+  { icon: 'server', text: 'Active/standby redundancy' },
+  { icon: 'hard-drive-download', text: 'History buffered through outages' },
+  { icon: 'users', text: 'Single sign-on with your directory' },
+  { icon: 'lock', text: "HTTPS with your plant's certificate" },
+  { icon: 'scroll-text', text: 'Every change audited' },
+];
+
+const installs = [
+  {
+    icon: 'container',
+    name: 'Docker',
+    rows: [
+      ['Runs on', 'Linux, macOS, Windows with WSL2'],
+      ['Databases', 'Included'],
+      ['Installed with', 'One script that asks three questions'],
+    ],
+  },
+  {
+    icon: 'terminal',
+    name: 'Linux',
+    rows: [
+      ['Runs on', 'Linux with systemd'],
+      ['Databases', 'Bring your own, or start the bundled ones'],
+      ['Installed with', 'Release archive and install.sh, as a systemd service with a hardened sandbox'],
+    ],
+  },
+  {
+    icon: 'app-window',
+    name: 'Windows',
+    rows: [
+      ['Runs on', 'Windows 10/11, Server 2016 or later, x64'],
+      ['Databases', 'Bring your own'],
+      ['Installed with', 'Setup wizard, runs as a service, Node.js included'],
+    ],
+  },
+];
+---
+
+<Base
+  title="Nexus IIoT: SCADA, HMI and historian in one gateway"
+  description="Connect PLCs, record history, raise alarms and run operator screens from one gateway, in any browser."
+>
+  <!-- 1. Hero -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="dot"></span> SCADA, HMI and IIoT in one gateway</p>
+        <h1>Your whole plant, in <span class="grad">one browser tab.</span></h1>
+        <p class="lead">
+          Nexus connects to your PLCs, records every value, raises alarms and runs operator screens on any device.
+          Model a pump once, and every pump gets its tags, alarms and history.
+        </p>
+        <div class="actions">
+          <a class="btn btn-primary btn-lg" href={url('/demo/')}>Book a demo</a>
+          <a class="btn btn-secondary btn-lg" href={url(site.docsUrl)}>Read the docs</a>
+        </div>
+        <p class="hero-note">Runs on your own servers: Docker, Linux or Windows. Nothing to install on operator screens.</p>
+      </div>
+      <div class="hero-visual">
+        <DeviceComposite id="hero-composite" devices={['laptop', 'tablet']} eager />
+      </div>
+    </div>
+
+    <!-- 2. Protocol strip -->
+    <div class="protocols">
+      <div class="container protocols-inner">
+        <p>Talks to the equipment you already have</p>
+        <ul class="chips" aria-label="Supported protocols">
+          {protocols.map((p) => <li class="chip">{p}</li>)}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. How it works -->
+  <section class="section" aria-labelledby="how-title">
+    <div class="container">
+      <SectionHead
+        id="how-title"
+        eyebrow="How it works"
+        title="From PLC to operator screen in four steps"
+        lead="Connect, model, operate and share. Every step happens in the browser."
+      />
+      <ol class="steps">
+        <li class="step">
+          <span class="step-num">1</span>
+          <h3>Connect your devices</h3>
+          <p>Type addresses the way the manual prints them, and Nexus batches the reads.</p>
+          <div class="step-visual" aria-label="40001 and HR1 both mean holding register 1">
+            <div class="map-row"><code>40001</code><Icon name="arrow-right" size={14} /><span>holding register 1</span></div>
+            <div class="map-row"><code>HR1</code><Icon name="arrow-right" size={14} /><span>holding register 1</span></div>
+          </div>
+        </li>
+        <li class="step">
+          <span class="step-num">2</span>
+          <h3>Model your equipment</h3>
+          <p>Make a Pump template once. It becomes P-101 to P-140 in one step.</p>
+          <div class="step-visual" aria-label="The Pump template becomes pumps P-101 to P-140">
+            <div class="map-row"><code>Pump</code><Icon name="arrow-right" size={14} /><span>template</span></div>
+            <div class="chips">
+              <span class="chip tag-id">P-101</span><span class="chip tag-id">P-102</span><span class="chip">…</span><span
+                class="chip tag-id">P-140</span
+              >
+            </div>
+          </div>
+        </li>
+        <li class="step">
+          <span class="step-num">3</span>
+          <h3>Operate from any screen</h3>
+          <p>Publish an application, and operators open it by URL. Nothing to install.</p>
+          <div class="step-visual" aria-label="Control room, tablet and phone">
+            <div class="chips">
+              <span class="chip"><Icon name="monitor" size={14} /> Control room</span>
+              <span class="chip"><Icon name="tablet" size={14} /> Tablet</span>
+              <span class="chip"><Icon name="smartphone" size={14} /> Phone</span>
+            </div>
+          </div>
+        </li>
+        <li class="step">
+          <span class="step-num">4</span>
+          <h3>Share the data</h3>
+          <p>OPC UA, MQTT, REST and webhooks follow every change live.</p>
+          <div class="step-visual" aria-label="OPC UA, MQTT, REST and webhooks">
+            <div class="chips">
+              <span class="chip">OPC UA</span><span class="chip">MQTT</span><span class="chip">REST</span><span
+                class="chip">Webhooks</span
+              >
+            </div>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- 4. Feature cards -->
+  <section class="section section-alt" aria-labelledby="features-title">
+    <div class="container">
+      <SectionHead
+        id="features-title"
+        eyebrow="Product"
+        title="Model it once. Use it everywhere."
+        lead="A template change reaches every instance: its screens, its alarms, its history, and the data published to other systems."
+      />
+      <div class="grid-3">
+        {
+          features.map((f) => (
+            <a class="card" href={url(f.href)}>
+              <span class="card-icon">
+                <Icon name={f.icon} />
+              </span>
+              <p class="card-kicker">{f.kicker}</p>
+              <h3>{f.title}</h3>
+              <p>{f.body}</p>
+              <span class="text-link">
+                {f.link} <Icon name="arrow-right" size={16} />
+              </span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. AI assistant -->
+  <section class="section" aria-labelledby="ai-title">
+    <div class="container split">
+      <div>
+        <p class="eyebrow eyebrow-icon"><Icon name="sparkles" size={18} /> AI assistant</p>
+        <h2 id="ai-title">Describe the screen. Review the draft. Publish.</h2>
+        <p class="lead" style="margin-top: 16px">
+          Ask for “an overview of every pump with its running state and fault”, and the assistant builds it from your
+          plant's real tags, as a draft.
+        </p>
+        <div class="guardrails">
+          <div class="guardrail can">
+            <h3><Icon name="check" size={18} /> It can</h3>
+            <ul>
+              <li>Search your tags</li>
+              <li>Create and update draft views</li>
+              <li>Show each step it takes</li>
+            </ul>
+          </div>
+          <div class="guardrail cannot">
+            <h3><Icon name="minus" size={18} /> It can't</h3>
+            <ul>
+              <li>Publish</li>
+              <li>Write values</li>
+              <li>Touch devices, alarms or users</li>
+            </ul>
+          </div>
+        </div>
+        <p class="small-print">Every request is in the audit log. Powered by Claude, from Anthropic.</p>
+        <p style="margin-top: 20px">
+          <a class="text-link" href={url('/ai-assistant/')}>How the assistant works <Icon name="arrow-right" size={16} /></a>
+        </p>
+      </div>
+      <Shot id="assistant-recording" />
+    </div>
+  </section>
+
+  <!-- 6. Integrations -->
+  <section class="section section-alt" aria-labelledby="int-title">
+    <div class="container">
+      <SectionHead
+        id="int-title"
+        eyebrow="Integrations"
+        title="Open by default"
+        lead="Everything Nexus collects can be shared onward, live, without extra software."
+      />
+      <ul class="int-grid">
+        {
+          integrations.map((i) => (
+            <li class="int-item">
+              <Icon name={i.icon} size={22} />
+              <h3>{i.title}</h3>
+              <p>{i.body}</p>
+            </li>
+          ))
+        }
+        <li class="int-item int-more">
+          <a class="text-link" href={url('/integrations/')}>All integrations <Icon name="arrow-right" size={16} /></a>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 7. Trust strip -->
+  <section class="section" aria-labelledby="trust-title">
+    <div class="container">
+      <SectionHead
+        id="trust-title"
+        eyebrow="Security and reliability"
+        title="Built to stay up"
+        center
+      />
+      <ul class="trust">
+        {
+          trust.map((t) => (
+            <li>
+              <Icon name={t.icon} />
+              {t.text}
+            </li>
+          ))
+        }
+      </ul>
+      <p class="trust-foot">
+        <a class="text-link" href={url('/security/')}>How Nexus handles security and redundancy <Icon name="arrow-right" size={16} /></a>
+      </p>
+    </div>
+  </section>
+
+  <!-- 8. Install your way -->
+  <section class="section section-alt" aria-labelledby="install-title">
+    <div class="container">
+      <SectionHead
+        id="install-title"
+        eyebrow="Install your way"
+        title="Fits the servers you already run"
+        lead="Install with one script or a setup wizard. Upgrades keep your settings and run database migrations on start."
+      />
+      <div class="install">
+        {
+          installs.map((i) => (
+            <article class="install-tile">
+              <header>
+                <span class="card-icon">
+                  <Icon name={i.icon} />
+                </span>
+                <h3>{i.name}</h3>
+              </header>
+              <dl>
+                {i.rows.map(([k, v]) => (
+                  <>
+                    <dt>{k}</dt>
+                    <dd>{v}</dd>
+                  </>
+                ))}
+              </dl>
+            </article>
+          ))
+        }
+      </div>
+      <p class="trust-foot">
+        <a class="text-link" href={url('/how-it-works/')}>Architecture and installation <Icon name="arrow-right" size={16} /></a>
+      </p>
+    </div>
+  </section>
+
+  <!-- 9. Closing call to action -->
+  <div class="section-tight"></div>
+  <CtaBand />
+</Base>

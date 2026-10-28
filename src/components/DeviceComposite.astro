@@ -1,0 +1,68 @@
+---
+// For visuals that are themselves a composite of devices (the hero, the
+// operator app on three screens). Once the PNG exists it is shown as delivered;
+// until then, outline devices with a neutral skeleton hold its place.
+import { resolveVisual } from '../lib/shots';
+import type { VisualId } from '../data/visuals';
+
+type Device = 'laptop' | 'tablet' | 'phone' | 'wall';
+
+interface Props {
+  id: VisualId;
+  devices: Device[];
+  eager?: boolean;
+}
+
+const { id, devices, eager = false } = Astro.props;
+const { visual, image } = resolveVisual(id);
+---
+
+<figure class="composite">
+  {
+    image ? (
+      <picture>
+        {image.dark && <source srcset={image.dark} media="(prefers-color-scheme: dark)" />}
+        <img
+          src={image.src}
+          width={image.width}
+          height={image.height}
+          alt={visual.alt}
+          loading={eager ? 'eager' : 'lazy'}
+          fetchpriority={eager ? 'high' : undefined}
+          decoding="async"
+        />
+      </picture>
+    ) : (
+      <div class:list={['devices', `devices-${devices.length}`]} role="img" aria-label={`Placeholder: ${visual.alt}`}>
+        {devices.map((device, i) => (
+          <div class:list={['device', `device-${device}`]}>
+            <div class="device-screen">
+              <div class="skel" aria-hidden="true">
+                <div class="skel-top" />
+                <div class="skel-body">
+                  <div class="skel-side" />
+                  <div class="skel-grid">
+                    <i />
+                    <i />
+                    <i />
+                    <i />
+                    <i />
+                    <i />
+                  </div>
+                </div>
+              </div>
+              {i === 0 && (
+                <div class="device-label">
+                  <span class="ph-kind">Screenshot to come</span>
+                  <strong>{visual.title}</strong>
+                  <span>{visual.shows}</span>
+                </div>
+              )}
+            </div>
+            {device === 'laptop' && <div class="device-base" />}
+          </div>
+        ))}
+      </div>
+    )
+  }
+</figure>

@@ -1,0 +1,24 @@
+---
+import { url } from '../lib/url';
+interface Props {
+  headline?: string;
+  body?: string;
+}
+
+const {
+  headline = 'See your plant in Nexus.',
+  body = "Bring a device list and we'll show you templates, screens and alarms built on it.",
+} = Astro.props;
+---
+
+<section class="section cta-section">
+  <div class="container">
+    <div class="cta-band">
+      <div>
+        <h2>{headline}</h2>
+        <p>{body}</p>
+      </div>
+      <a class="btn btn-primary btn-lg" href={url('/demo/')}>Book a demo</a>
+    </div>
+  </div>
+</section>

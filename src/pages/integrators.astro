@@ -1,0 +1,72 @@
+---
+import Feature from '../layouts/Feature.astro';
+import { productPages } from '../data/product';
+
+const points = [
+  {
+    title: 'The whole configuration in one file',
+    body: 'A project is the whole configuration as one JSON file. Keep it in git, and diff one version against the next.',
+  },
+  {
+    title: 'Imports you can check first',
+    body: 'An import previews exactly what will change, applies in one transaction, and never deletes what only exists on the target.',
+  },
+  {
+    title: 'Templates that travel',
+    body: 'Parameters, nested templates and inheritance: a Motor inside a Pump, a VFD Pump that extends Pump. Per-instance overrides stay marked.',
+  },
+  {
+    title: 'Forty instances in one step',
+    body: "P-{n} from 101 to 140, or paste the client's CSV. Every row is checked first, and all are created or none.",
+  },
+  {
+    title: 'Faceplates and symbols you reuse',
+    body: 'One pump view with parameters serves every pump, and repeaters add a faceplate for each new pump folder. Symbols import as SVG from Inkscape or Illustrator.',
+  },
+  {
+    title: 'Edge to central',
+    body: "Link each site's edge gateway to a central one over a single outbound connection. History waits on disk while the link is down.",
+  },
+  {
+    title: "Installs that fit the client's IT",
+    body: 'Docker, Linux or Windows, including an unattended Windows install with /S. Upgrades keep settings and run database migrations on start.',
+  },
+];
+
+const related = [
+  productPages.find((p) => p.href === '/templates/')!,
+  productPages.find((p) => p.href === '/integrations/')!,
+  { href: '/how-it-works/', name: 'How it works', blurb: 'Architecture, installation and projects', icon: 'network' },
+];
+---
+
+<Feature
+  title="SCADA for system integrators: Nexus IIoT"
+  description="Reuse templates, faceplates and whole projects across clients and sites, with import previews and an edge-to-central gateway network."
+  headline="Build once. Deliver to every site."
+  intro="Templates carry a piece of equipment from one job to the next, and a project carries the whole configuration as one JSON file. Preview every import before it applies, and link each site's edge gateway to a central one."
+  points={points}
+  related={related}
+>
+  <figure slot="visual" class="detail" aria-labelledby="project-caption">
+    <h3>How a project moves</h3>
+    <p id="project-caption">From your own library to a client's gateway, with nothing applied until you have seen it.</p>
+    <ol class="flow">
+      <li>
+        <small>01 · Your library</small>
+        <strong>Build it once</strong>
+        <span>Templates, faceplates, symbols and settings, kept as a project.</span>
+      </li>
+      <li>
+        <small>02 · Project file</small>
+        <strong>One JSON file</strong>
+        <span>The whole configuration. Commit it to git and diff it between versions.</span>
+      </li>
+      <li>
+        <small>03 · Client gateway</small>
+        <strong>Preview, then apply</strong>
+        <span>See every change first. It applies in one transaction and never deletes what only exists there.</span>
+      </li>
+    </ol>
+  </figure>
+</Feature>

@@ -1,0 +1,169 @@
+---
+import Logo from './Logo.astro';
+import Icon from './Icon.astro';
+import { productPages, audiencePages } from '../data/product';
+import { site } from '../config';
+import { url } from '../lib/url';
+
+const path = Astro.url.pathname;
+const current = (href: string) => (path === url(href) ? 'page' : undefined);
+const inProduct = [...productPages, ...audiencePages].some((p) => url(p.href) === path);
+---
+
+<header class="site-header" data-header>
+  <div class="container header-inner">
+    <a href={url('/')} class="brand" aria-label="Nexus home">
+      <Logo size={28} />
+      <span>Nexus</span>
+    </a>
+
+    <nav class="nav" aria-label="Main">
+      <div class="nav-product" data-dropdown>
+        <button
+          type="button"
+          class:list={['nav-link', { active: inProduct }]}
+          aria-expanded="false"
+          aria-controls="product-menu"
+          data-dropdown-toggle
+        >
+          Product <Icon name="chevron-down" size={16} />
+        </button>
+        <div class="mega" id="product-menu">
+          <div class="mega-panel">
+            <ul>
+              {
+                productPages.map((p) => (
+                  <li>
+                    <a href={url(p.href)} aria-current={current(p.href)}>
+                      <span class="mega-icon">
+                        <Icon name={p.icon} />
+                      </span>
+                      <span class="mega-text">
+                        <strong>{p.name}</strong>
+                        <small>{p.blurb}</small>
+                      </span>
+                    </a>
+                  </li>
+                ))
+              }
+            </ul>
+            <div class="mega-foot">
+              <p>Who it's for</p>
+              {
+                audiencePages.map((p) => (
+                  <a href={url(p.href)} aria-current={current(p.href)}>
+                    <Icon name={p.icon} size={16} />
+                    {p.name}
+                  </a>
+                ))
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+      <a class="nav-link" href={url('/how-it-works/')} aria-current={current('/how-it-works/')}>How it works</a>
+      <a class="nav-link" href={url('/security/')} aria-current={current('/security/')}>Security</a>
+      <a class="nav-link" href={url(site.docsUrl)} aria-current={current(site.docsUrl)}>Docs</a>
+    </nav>
+
+    <div class="header-actions">
+      <a class="btn btn-primary btn-sm" href={url('/demo/')}>Book a demo</a>
+      <button
+        type="button"
+        class="menu-toggle"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        aria-label="Open menu"
+        data-menu-toggle
+      >
+        <span class="menu-open"><Icon name="menu" /></span>
+        <span class="menu-close"><Icon name="x" /></span>
+      </button>
+    </div>
+  </div>
+
+  <div class="mobile-menu" id="mobile-menu" hidden>
+    <div class="container">
+      <p class="mobile-heading">Product</p>
+      <ul class="mobile-product">
+        {
+          productPages.map((p) => (
+            <li>
+              <a href={url(p.href)} aria-current={current(p.href)}>
+                <Icon name={p.icon} size={18} />
+                {p.name}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <p class="mobile-heading">Who it's for</p>
+      <ul class="mobile-product">
+        {
+          audiencePages.map((p) => (
+            <li>
+              <a href={url(p.href)} aria-current={current(p.href)}>
+                <Icon name={p.icon} size={18} />
+                {p.name}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <ul class="mobile-links">
+        <li><a href={url('/how-it-works/')}>How it works</a></li>
+        <li><a href={url('/security/')}>Security</a></li>
+        <li><a href={url(site.docsUrl)}>Docs</a></li>
+      </ul>
+      <a class="btn btn-primary btn-block" href={url('/demo/')}>Book a demo</a>
+    </div>
+  </div>
+</header>
+
+<script>
+  const header = document.querySelector<HTMLElement>('[data-header]')!;
+  const dropdown = header.querySelector<HTMLElement>('[data-dropdown]')!;
+  const dropdownToggle = header.querySelector<HTMLButtonElement>('[data-dropdown-toggle]')!;
+  const menuToggle = header.querySelector<HTMLButtonElement>('[data-menu-toggle]')!;
+  const menu = header.querySelector<HTMLElement>('#mobile-menu')!;
+
+  const setDropdown = (open: boolean) => {
+    dropdown.toggleAttribute('data-open', open);
+    dropdownToggle.setAttribute('aria-expanded', String(open));
+  };
+  const setMenu = (open: boolean) => {
+    menu.hidden = !open;
+    header.toggleAttribute('data-menu-open', open);
+    menuToggle.setAttribute('aria-expanded', String(open));
+    menuToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    document.documentElement.classList.toggle('no-scroll', open);
+  };
+
+  dropdownToggle.addEventListener('click', () => setDropdown(!dropdown.hasAttribute('data-open')));
+  menuToggle.addEventListener('click', () => setMenu(!header.hasAttribute('data-menu-open')));
+
+  document.addEventListener('click', (e) => {
+    if (!dropdown.contains(e.target as Node)) setDropdown(false);
+  });
+  dropdown.addEventListener('focusout', (e) => {
+    if (!dropdown.contains(e.relatedTarget as Node)) setDropdown(false);
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return;
+    if (dropdown.hasAttribute('data-open')) {
+      setDropdown(false);
+      dropdownToggle.focus();
+    }
+    if (header.hasAttribute('data-menu-open')) {
+      setMenu(false);
+      menuToggle.focus();
+    }
+  });
+  matchMedia('(min-width: 960px)').addEventListener('change', (e) => {
+    if (e.matches) setMenu(false);
+  });
+
+  const onScroll = () => header.toggleAttribute('data-scrolled', scrollY > 4);
+  addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+</script>

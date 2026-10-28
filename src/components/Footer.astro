@@ -1,0 +1,63 @@
+---
+import Logo from './Logo.astro';
+import { productPages, audiencePages } from '../data/product';
+import { site } from '../config';
+import { url } from '../lib/url';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <a href={url('/')} class="brand" aria-label="Nexus home">
+        <Logo size={28} />
+        <span>Nexus</span>
+      </a>
+      <p>SCADA, HMI and IIoT in one gateway, used entirely from a browser.</p>
+      <a class="btn btn-primary btn-sm" href={url('/demo/')}>Book a demo</a>
+    </div>
+
+    <nav aria-labelledby="footer-product">
+      <h2 id="footer-product">Product</h2>
+      <ul>
+        {productPages.map((p) => <li><a href={url(p.href)}>{p.name}</a></li>)}
+      </ul>
+    </nav>
+
+    <nav aria-labelledby="footer-audience">
+      <h2 id="footer-audience">Who it's for</h2>
+      <ul>
+        {audiencePages.map((p) => <li><a href={url(p.href)}>{p.name}</a></li>)}
+      </ul>
+    </nav>
+
+    <nav aria-labelledby="footer-learn">
+      <h2 id="footer-learn">Learn</h2>
+      <ul>
+        <li><a href={url('/how-it-works/')}>How it works</a></li>
+        <li><a href={url('/security/')}>Security and reliability</a></li>
+        <li><a href={url(site.docsUrl)}>Docs</a></li>
+        <li><a href={url('/demo/')}>Book a demo</a></li>
+      </ul>
+    </nav>
+
+    <nav aria-labelledby="footer-legal">
+      <h2 id="footer-legal">Legal</h2>
+      <ul>
+        <li><a href={url('/privacy/')}>Privacy policy</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <div class="container">
+    <div class="footer-legal">
+      <p>
+        Modbus, Siemens, S7, EtherNet/IP, OPC UA, Sparkplug, Node-RED and the other product and protocol names on this
+        site are trademarks of their respective owners. They are used here only to describe compatibility, and their use
+        does not imply endorsement. Claude and Anthropic are trademarks of Anthropic, PBC.
+      </p>
+      <p>© {year} {site.company}</p>
+    </div>
+  </div>
+</footer>

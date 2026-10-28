@@ -1,0 +1,58 @@
+---
+import Feature from '../layouts/Feature.astro';
+import Shot from '../components/Shot.astro';
+import DeviceComposite from '../components/DeviceComposite.astro';
+
+const points = [
+  {
+    title: 'Draft, publish, roll back',
+    body: 'Operators keep the live version until an engineer publishes, with a change list and a note. Any earlier version can go back live.',
+  },
+  {
+    title: 'Reusable faceplates',
+    body: 'One pump view with parameters appears as P-101 and P-102. Repeaters add a faceplate for every new pump folder on their own.',
+  },
+  {
+    title: 'Popups, value maps, tag tables and actions',
+    body: 'With a confirmation step where it matters: “Start pump P-102?”',
+  },
+  {
+    title: 'Symbol library',
+    body: 'Import SVGs from Inkscape or Illustrator, then animate colour, fill level, rotation, spin and text from tags.',
+  },
+  {
+    title: 'Custom widgets',
+    body: 'Write your own controls in HTML and JavaScript. Widgets run sandboxed, with no network access.',
+  },
+  {
+    title: 'Kiosk mode and access by role',
+    body: 'Run wall screens in kiosk mode, and limit each application to the roles that need it.',
+  },
+];
+---
+
+<Feature
+  title="Web HMI for any screen: Nexus IIoT"
+  description="Operator screens in any browser, with drafts, versions, rollback and an SVG symbol library."
+  headline="Screens for every operator, on every device."
+  intro="Engineers build applications, such as a line HMI, a maintenance app or an energy dashboard, and operators open them full-screen in any browser. Nothing is installed on control-room PCs, tablets or phones."
+  points={points}
+>
+  <DeviceComposite slot="visual" id="operator-app-screens" devices={['wall', 'tablet', 'phone']} />
+
+  <section class="section-tight">
+    <div class="container split">
+      <div class="stack">
+        <div>
+          <p class="eyebrow">Symbol library</p>
+          <h2>Bring your own symbols. Bind them to tags.</h2>
+        </div>
+        <p class="lead">
+          Import an SVG drawn in Inkscape or Illustrator, then drive its colour, fill level, rotation, spin and text from
+          live tags.
+        </p>
+      </div>
+      <Shot id="symbol-editor" loop />
+    </div>
+  </section>
+</Feature>

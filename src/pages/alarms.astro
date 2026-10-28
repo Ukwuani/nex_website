@@ -1,0 +1,75 @@
+---
+import Feature from '../layouts/Feature.astro';
+import Shot from '../components/Shot.astro';
+
+const points = [
+  {
+    title: 'Rules for every case',
+    body: 'High, high-high, low, low-low, digital, deviation, rate of change and bad quality, in four priorities. With on-delay, deadband, and setpoints that follow another tag.',
+  },
+  {
+    title: 'On-call',
+    body: 'Weekly schedules in a time zone, rosters, and timed escalation steps: at once, Operators; after 15 minutes, Engineering.',
+  },
+  {
+    title: 'Acknowledge from the message',
+    body: 'Acknowledge straight from the notification, with a note. The link works for 24 hours and needs a click, so mail scanners can’t acknowledge.',
+  },
+  {
+    title: 'A journal that outlives the configuration',
+    body: 'Renaming or deleting a tag, rule or user never changes the history of what happened.',
+  },
+  {
+    title: 'Survives restarts and failover',
+    body: 'Escalation carries on from the next step, and never repeats one.',
+  },
+];
+
+const rules = ['High', 'High-high', 'Low', 'Low-low', 'Digital', 'Deviation', 'Rate of change', 'Bad quality'];
+---
+
+<Feature
+  title="Alarm management and on-call: Nexus IIoT"
+  description="Alarm rules, on-call rosters and timed escalation by email and SMS, with acknowledge-from-the-message."
+  headline="The right person hears about it. Then the next one."
+  intro="Alarm rules watch every tag and notify by email, SMS or webhook. Escalation policies call whoever is on call, then the next person if nobody acknowledges."
+  points={points}
+  visual="alarm-timeline"
+>
+  <section class="section-tight">
+    <div class="container split split-reverse">
+      <div class="stack">
+        <div>
+          <p class="eyebrow">Escalation</p>
+          <h2>If nobody answers, the next person hears</h2>
+        </div>
+        <p class="lead">An escalation policy is a list of timed steps. Each step notifies whoever is on call, and the next step runs only if nobody acknowledges.</p>
+        <ol class="flow" style="grid-template-columns: 1fr">
+          <li>
+            <small>Step 1 · at once</small>
+            <strong>Operators</strong>
+            <span>Whoever is on call on the Operators roster</span>
+          </li>
+          <li>
+            <small>Step 2 · after 15 min</small>
+            <strong>Engineering</strong>
+            <span>If nobody has acknowledged yet</span>
+          </li>
+        </ol>
+      </div>
+      <Shot id="on-call-policy" />
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container">
+      <div class="detail">
+        <h3>Rule types</h3>
+        <p>Eight rule types in four priorities, with on-delay, deadband, and setpoints that can follow another tag.</p>
+        <ul class="chips">
+          {rules.map((r) => <li class="chip">{r}</li>)}
+        </ul>
+      </div>
+    </div>
+  </section>
+</Feature>

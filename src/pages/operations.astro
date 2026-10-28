@@ -1,0 +1,97 @@
+---
+import Feature from '../layouts/Feature.astro';
+import DeviceComposite from '../components/DeviceComposite.astro';
+import Icon from '../components/Icon.astro';
+import { productPages } from '../data/product';
+
+const points = [
+  {
+    title: 'Any screen, nothing to install',
+    body: 'Operators open an application by URL on a control-room PC, a wall screen, a tablet or a phone. Wall screens run in kiosk mode.',
+  },
+  {
+    title: 'No surprise changes',
+    body: 'Operators keep the live version until an engineer publishes, with a change list and a note. Any earlier version can go back live.',
+  },
+  {
+    title: 'Confirmation where it matters',
+    body: 'Actions such as “Start pump P-102?” ask before they act.',
+  },
+  {
+    title: 'Each person sees their part',
+    body: 'Limit each application to the roles that need it, and each user to their part of the plant.',
+  },
+  {
+    title: 'On-call that follows the roster',
+    body: 'Weekly schedules in your time zone, with timed escalation: at once, Operators; after 15 minutes, Engineering.',
+  },
+  {
+    title: 'Acknowledge from the message',
+    body: 'With a note. The link works for 24 hours and needs a click, so mail scanners can’t acknowledge.',
+  },
+  {
+    title: 'A journal that keeps what happened',
+    body: 'Notes stay with each alarm, and renaming or deleting a tag, rule or user never changes the history.',
+  },
+  {
+    title: 'Shift reports that send themselves',
+    body: 'By email, to a network share or to a web upload, on the schedule you set. Each run happens exactly once, even across a failover.',
+  },
+];
+
+const related = ['/applications/', '/alarms/', '/history/'].map((href) => productPages.find((p) => p.href === href)!);
+---
+
+<Feature
+  title="Operator screens and on-call alarms: Nexus IIoT"
+  description="Operator apps on any screen, on-call rosters with timed escalation, an alarm journal with notes and shift reports that send themselves."
+  headline="Screens operators use. Alarms that reach someone."
+  intro="Operators open full-screen applications on control-room screens, tablets and phones, with nothing to install. When something goes wrong, on-call rosters and timed escalation make sure someone hears about it."
+  points={points}
+  related={related}
+>
+  <DeviceComposite slot="visual" id="operator-app-screens" devices={['wall', 'tablet', 'phone']} />
+
+  <section class="section-tight">
+    <div class="container grid-2">
+      <div class="detail">
+        <h3>When an alarm fires</h3>
+        <p>Every step lands in the alarm journal.</p>
+        <ol class="flow" style="grid-template-columns: 1fr">
+          <li>
+            <small>Activated</small>
+            <span>A rule trips on a tag.</span>
+          </li>
+          <li>
+            <small>Notified</small>
+            <span>Whoever is on call on the Operators roster hears by email, SMS or webhook.</span>
+          </li>
+          <li>
+            <small>Escalated, if nobody answers</small>
+            <span>After 15 minutes, the next step notifies Engineering.</span>
+          </li>
+          <li>
+            <small>Acknowledged</small>
+            <span>From the message, with a note: “Breaker reset, monitoring.”</span>
+          </li>
+        </ol>
+      </div>
+      <div class="detail">
+        <h3>Every shift, reported</h3>
+        <p>Built-in alarm and shift reports, delivered as PDFs on a schedule.</p>
+        <div class="stack">
+          <div class="code-line" aria-label="Monday to Friday at 06:00, 14:00 and 22:00">
+            <Icon name="calendar-clock" size={16} />
+            Mon–Fri · 06:00 · 14:00 · 22:00
+          </div>
+          <ul class="chips" aria-label="Delivery">
+            <li class="chip"><Icon name="mail" size={14} /> Email</li>
+            <li class="chip"><Icon name="folder" size={14} /> Network share</li>
+            <li class="chip"><Icon name="upload" size={14} /> Web upload</li>
+          </ul>
+          <p class="muted">Daylight saving is handled, and each run happens exactly once, even across a failover.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Feature>

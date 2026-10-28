@@ -1,0 +1,24 @@
+---
+// Inlines a lucide-static icon at build time, so no icon JavaScript ships.
+import fs from 'node:fs';
+import path from 'node:path';
+
+interface Props {
+  name: string;
+  size?: number;
+  class?: string;
+}
+
+const { name, size = 20, class: className = '' } = Astro.props;
+const file = path.join(process.cwd(), 'node_modules', 'lucide-static', 'icons', `${name}.svg`);
+const svg = fs
+  .readFileSync(file, 'utf8')
+  .replace(/<!--[\s\S]*?-->/, '')
+  .replace('width="24"', `width="${size}"`)
+  .replace('height="24"', `height="${size}"`)
+  .replace('stroke-width="2"', 'stroke-width="1.75"')
+  .replace(/class="([^"]*)"/, `class="$1 icon ${className}" aria-hidden="true" focusable="false"`)
+  .trim();
+---
+
+<Fragment set:html={svg} />

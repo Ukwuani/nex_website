@@ -1,0 +1,63 @@
+---
+import Feature from '../layouts/Feature.astro';
+
+const points = [
+  {
+    title: 'Scripts for every trigger',
+    body: 'Run on tag change, on a timer, at startup and shutdown, on alarm events, or on demand from a screen button or the API.',
+  },
+  {
+    title: 'A shared library, and a safe console',
+    body: 'Keep common code in shared script modules, and try code in a console before it goes live.',
+  },
+  {
+    title: 'Secrets kept out of the code',
+    body: 'Passwords and API keys are stored encrypted and write-only, and masked in every log.',
+  },
+  {
+    title: 'Node-RED, built in',
+    body: 'Embedded Node-RED with Nexus nodes for tags, alarms and notifications. npm installs are locked down by default.',
+  },
+];
+
+const kinds = [
+  ['Tag change', 'When a tag’s value changes'],
+  ['Timer', 'On a fixed interval'],
+  ['Startup and shutdown', 'When the gateway starts or stops'],
+  ['Alarm events', 'When an alarm changes state'],
+  ['On demand', 'From a screen button or the API'],
+];
+---
+
+<Feature
+  title="JavaScript scripting and Node-RED: Nexus IIoT"
+  description="Tag, gateway and message-handler scripts in JavaScript, run in an isolated worker, with Node-RED built in for flows."
+  headline="JavaScript where you need logic. Node-RED where you need flows."
+  intro="Tag, gateway and message-handler scripts are written in JavaScript and run in an isolated worker, so a runaway script can't stop the plant. Node-RED is built in for flow-based automation."
+  points={points}
+  visual="script-editor"
+>
+  <section class="section-tight">
+    <div class="container">
+      <div class="detail">
+        <h3>When scripts run</h3>
+        <p>Every script runs apart from the main gateway, in an isolated worker that restarts on its own if it fails.</p>
+        <table class="spec">
+          <thead>
+            <tr><th scope="col">Trigger</th><th scope="col">Runs</th></tr>
+          </thead>
+          <tbody>
+            {
+              kinds.map(([k, v]) => (
+                <tr>
+                  <th scope="row">{k}</th>
+                  <td>{v}</td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</Feature>

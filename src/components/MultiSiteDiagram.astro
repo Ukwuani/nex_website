@@ -1,0 +1,54 @@
+---
+// Edge gateways at each site feeding one central gateway over a single
+// outbound connection.
+import Icon from './Icon.astro';
+
+const sites = ['Site A', 'Site B', 'Site C'];
+---
+
+<figure class="multisite" aria-labelledby="multisite-caption">
+  <div class="multisite-grid">
+    <ul class="multisite-edges">
+      {
+        sites.map((s) => (
+          <li class="ms-edge">
+            <div class="ms-edge-head">
+              <Icon name="server" size={18} />
+              <strong>Edge gateway</strong>
+              <span class="ms-site">{s}</span>
+            </div>
+            <span class="ms-devices">PLCs, meters and devices on the site network</span>
+            <span class="ms-buffer">
+              <Icon name="hard-drive-download" size={14} /> History buffered on disk
+            </span>
+          </li>
+        ))
+      }
+    </ul>
+
+    <div class="ms-link">
+      <span class="arch-arrow" aria-hidden="true"></span>
+      <div class="ms-link-text">
+        <strong>One outbound connection per site</strong>
+        <span>Tags, history, alarms and, if allowed, writes</span>
+      </div>
+    </div>
+
+    <div class="ms-central">
+      <div class="arch-gateway-head">
+        <Icon name="server" size={18} />
+        <strong>Central gateway</strong>
+      </div>
+      <ul>
+        <li>Tags from every site</li>
+        <li>History with no gaps</li>
+        <li>Alarms from every site</li>
+        <li>Shared onward over OPC UA, MQTT, REST, webhooks and SQL</li>
+      </ul>
+    </div>
+  </div>
+  <figcaption id="multisite-caption">
+    Edges share their tags, history and alarms with a central gateway. While the link is down, history waits on disk,
+    so the central has no gaps.
+  </figcaption>
+</figure>
