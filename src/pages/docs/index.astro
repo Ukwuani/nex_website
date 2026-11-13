@@ -1,0 +1,103 @@
+---
+import { getCollection } from 'astro:content';
+import Docs from '../../layouts/Docs.astro';
+import Icon from '../../components/Icon.astro';
+import { docsNav } from '../../data/docs';
+import { url } from '../../lib/url';
+
+const entries = await getCollection('docs');
+const page = new Map(entries.map((entry) => [entry.id, entry.data]));
+
+const paths = [
+  {
+    icon: 'users',
+    who: 'Operators',
+    what: 'Run the plant from the screens engineers build.',
+    links: [
+      ['applications', 'Using an application'],
+      ['alarms', 'Acknowledging and shelving alarms'],
+      ['trends', 'Looking back at history'],
+      ['barcode-scanning', 'Scanning barcodes and QR labels'],
+    ],
+  },
+  {
+    icon: 'wrench',
+    who: 'Engineers',
+    what: 'Connect equipment, model it, and build screens, alarms and reports.',
+    links: [
+      ['quick-start', 'Quick start: device to screen'],
+      ['devices', 'Connecting devices'],
+      ['udt-templates', 'Templates for repeated equipment'],
+      ['views', 'Building views'],
+    ],
+  },
+  {
+    icon: 'shield-check',
+    who: 'Administrators',
+    what: 'Install, secure and look after the gateway.',
+    links: [
+      ['installation', 'Installing Nexus'],
+      ['users-and-roles', 'Users and roles'],
+      ['security', 'Security checklist'],
+      ['operations', 'Backups and upgrades'],
+    ],
+  },
+];
+---
+
+<Docs title="Nexus documentation" description="How to install, configure and use Nexus: devices, tags, templates, views, applications, alarms, history, scripting, integrations and administration.">
+  <h1>Nexus documentation</h1>
+  <p class="docs-lead">
+    Everything on the platform and how to use it: from installing the gateway and connecting the first PLC to building operator applications, alarms that
+    reach someone, reports, scripts and multi-site networks.
+  </p>
+
+  <div class="docs-paths">
+    {
+      paths.map((path) => (
+        <section class="docs-path">
+          <header>
+            <span class="card-icon">
+              <Icon name={path.icon} />
+            </span>
+            <div>
+              <h2>{path.who}</h2>
+              <p>{path.what}</p>
+            </div>
+          </header>
+          <ul>
+            {path.links.map(([slug, label]) => (
+              <li>
+                <a href={url(`/docs/${slug}/`)}>
+                  {label} <Icon name="arrow-right" size={14} />
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))
+    }
+  </div>
+
+  <h2 class="docs-home-heading">All topics</h2>
+  <div class="docs-sections">
+    {
+      docsNav.map((section) => (
+        <section class="docs-section-card">
+          <h3>
+            <Icon name={section.icon} size={18} />
+            {section.title}
+          </h3>
+          <ul>
+            {section.pages.map((slug) => (
+              <li>
+                <a href={url(`/docs/${slug}/`)}>{page.get(slug)?.title ?? slug}</a>
+                <p>{page.get(slug)?.description}</p>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))
+    }
+  </div>
+</Docs>

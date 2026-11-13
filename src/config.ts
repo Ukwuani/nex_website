@@ -7,10 +7,10 @@ export const site = {
   // OPEN: the company behind Nexus, shown in the footer copyright line.
   company: 'Nexus',
 
-  // OPEN: where the public documentation will live. Until it is published,
-  // /docs/ explains that the docs are on their way.
+  // The user documentation (src/content/docs/), and the page the deployment
+  // guide links point at.
   docsUrl: '/docs/',
-  deploymentGuideUrl: '/docs/',
+  deploymentGuideUrl: '/docs/installation/',
 
   // OPEN: the endpoint that receives demo requests (a CRM or form service).
   // While it is empty, the form tells the visitor it is not connected yet

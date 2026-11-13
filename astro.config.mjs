@@ -9,9 +9,13 @@ export default defineConfig({
   site: process.env.SITE_URL || 'https://www.example.com',
   base: process.env.BASE_PATH || '/',
   trailingSlash: 'always',
+  markdown: {
+    // The docs' code samples: light and dark, following the visitor's setting (see docs.css).
+    shikiConfig: { themes: { light: 'github-light', dark: 'github-dark' } },
+  },
   integrations: [
     sitemap({
-      filter: (page) => !['/docs/', '/privacy/'].some((p) => page.endsWith(p)),
+      filter: (page) => !['/privacy/'].some((p) => page.endsWith(p)),
     }),
   ],
 });

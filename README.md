@@ -43,12 +43,30 @@ a custom domain.
 | `/how-it-works/` | Architecture diagram and installation |
 | `/security/` | Security and reliability, for the IT/OT reviewer |
 | `/demo/` | Book a demo form |
-| `/docs/`, `/privacy/` | Placeholders until the open questions are answered (not indexed) |
+| `/docs/` | The user documentation: a home page and one page per topic (see below) |
+| `/privacy/` | Placeholder until the open questions are answered (not indexed) |
 
 The feature and audience pages share `src/layouts/Feature.astro`: headline, intro, proof points,
 then one large visual. Each page's own copy is at the top of its file in `src/pages/`. The audience
 pages pull together facts from the feature pages for the system integrator and operations readers
 named in the brief, and link onward to the relevant feature pages.
+
+## Documentation
+
+`/docs/` is the user documentation: what everything on the platform does and how to use it, for
+operators, engineers and administrators.
+
+- Each topic is a Markdown file in `src/content/docs/` (title and description in its frontmatter).
+- The sidebar order and sections are in `src/data/docs.ts`. The build fails if a page isn't listed
+  there, or a listed page has no file.
+- Pages are rendered by `src/pages/docs/[...slug].astro` inside `src/layouts/Docs.astro`
+  (sidebar, "On this page", previous/next). Styles are in `src/styles/docs.css`.
+- Search runs in the browser from `/docs/search.json`, built from the Markdown at build time and
+  loaded the first time someone uses the search box. `/` focuses it.
+- Link between docs pages with relative links (`../tags/`, `../alarms/#alarm-types`), so they work
+  under a GitHub Pages subfolder too.
+- Facts come from the product: the app's own labels, `DEPLOYMENT.md` and the code. When the product
+  changes, update the matching page. The claims guardrails below apply to the docs too.
 
 ## Product visuals
 
@@ -107,9 +125,9 @@ the domain, which is in `astro.config.mjs`.
 - **Demo form endpoint**: `demoFormAction` is empty. Until it is set, the form tells the visitor
   that nothing was sent rather than pretending to submit. It posts `name`, `email`, `company`,
   `role`, `protocols` and `devices`.
-- **Docs**: `docsUrl` and `deploymentGuideUrl` point at the `/docs/` placeholder page. The brief
-  asks for every security claim to link to its section of the docs. Add those links once the docs
-  are published.
+- **Docs**: `docsUrl` and `deploymentGuideUrl` point at `/docs/`. The brief asks for every security
+  claim to link to its section of the docs; the matching pages are `/docs/security/`,
+  `/docs/users-and-roles/`, `/docs/sign-in-providers/` and `/docs/redundancy/`.
 - **Security overview PDF**: the download button on `/security/` appears once
   `securityOverviewPdf` is set.
 - **Company name**: `company` is used in the footer copyright line.
@@ -129,7 +147,7 @@ The copy follows the brief's "Claims to keep accurate" rules. When you edit, kee
 - no "unlimited"
 - no "signed installer"
 
-The How it works page states the current limits plainly: macOS runs in Docker only, redundancy
+The How it works page states the current limits plainly: Nexus for Mac is for evaluations and runs on Apple Silicon only, redundancy
 needs an external database, and the Windows installer is not code-signed yet. The AI assistant
 page says it needs internet access to Anthropic's API, needs the plant's own API key, and lists
 exactly what is sent.

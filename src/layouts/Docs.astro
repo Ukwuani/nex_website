@@ -1,0 +1,276 @@
+---
+// The documentation's frame: sidebar (sections and pages), search, the page,
+// and "On this page" from its headings. Used by the docs home and every page.
+import { getCollection } from 'astro:content';
+import Base from './Base.astro';
+import Icon from '../components/Icon.astro';
+import { docsNav, docsOrder } from '../data/docs';
+import { url } from '../lib/url';
+import '../styles/docs.css';
+
+interface Heading {
+  depth: number;
+  slug: string;
+  text: string;
+}
+
+interface Props {
+  title: string;
+  description: string;
+  /** The page's slug; undefined on the docs home. */
+  slug?: string;
+  headings?: Heading[];
+}
+
+const { title, description, slug, headings = [] } = Astro.props;
+const entries = await getCollection('docs');
+const titleOf = new Map(entries.map((entry) => [entry.id, entry.data.title]));
+
+const index = slug ? docsOrder.findIndex((page) => page.slug === slug) : -1;
+const section = index >= 0 ? docsOrder[index]!.section : undefined;
+const prev = index > 0 ? docsOrder[index - 1] : undefined;
+const next = index >= 0 && index < docsOrder.length - 1 ? docsOrder[index + 1] : undefined;
+const toc = headings.filter((heading) => heading.depth === 2 || heading.depth === 3);
+---
+
+<Base title={slug ? `${title}: Nexus docs` : title} description={description}>
+  <div class="container docs-shell">
+    <aside class="docs-sidebar" aria-label="Documentation">
+      <details class="docs-nav-toggle" data-docs-nav>
+        <summary>
+          <Icon name="menu" size={18} />
+          <span>{section ? `${section} · ${title}` : 'Browse the docs'}</span>
+        </summary>
+        <nav class="docs-nav">
+          <a class:list={['docs-home-link', { active: !slug }]} href={url('/docs/')} aria-current={!slug ? 'page' : undefined}>
+            <Icon name="book-open" size={16} /> Documentation home
+          </a>
+          {
+            docsNav.map((group) => (
+              <div class="docs-nav-group">
+                <p class="docs-nav-title">
+                  <Icon name={group.icon} size={16} />
+                  {group.title}
+                </p>
+                <ul>
+                  {group.pages.map((page) => (
+                    <li>
+                      <a href={url(`/docs/${page}/`)} aria-current={page === slug ? 'page' : undefined}>
+                        {titleOf.get(page) ?? page}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))
+          }
+        </nav>
+      </details>
+    </aside>
+
+    <div class="docs-main">
+      <div class="docs-search" data-docs-search data-index={url('/docs/search.json')} data-base={url('/docs/')}>
+        <label class="sr-only" for="docs-search-input">Search the documentation</label>
+        <Icon name="search" size={18} />
+        <input id="docs-search-input" type="search" placeholder="Search the docs" autocomplete="off" spellcheck="false" aria-controls="docs-search-results" aria-expanded="false" />
+        <kbd class="docs-search-key" aria-hidden="true">/</kbd>
+        <div class="docs-search-results" id="docs-search-results" role="listbox" hidden></div>
+      </div>
+
+      <article class="docs-article">
+        {section && <p class="eyebrow">{section}</p>}
+        <slot />
+      </article>
+
+      {
+        (prev || next) && (
+          <nav class="docs-pager" aria-label="Previous and next page">
+            {prev ? (
+              <a class="docs-pager-link" href={url(`/docs/${prev.slug}/`)}>
+                <small>
+                  <Icon name="arrow-left" size={14} /> Previous
+                </small>
+                <strong>{titleOf.get(prev.slug)}</strong>
+              </a>
+            ) : (
+              <span />
+            )}
+            {next && (
+              <a class="docs-pager-link next" href={url(`/docs/${next.slug}/`)}>
+                <small>
+                  Next <Icon name="arrow-right" size={14} />
+                </small>
+                <strong>{titleOf.get(next.slug)}</strong>
+              </a>
+            )}
+          </nav>
+        )
+      }
+    </div>
+
+    {
+      toc.length > 1 && (
+        <aside class="docs-toc" aria-label="On this page">
+          <p class="docs-nav-title">On this page</p>
+          <ul>
+            {toc.map((heading) => (
+              <li class={`depth-${heading.depth}`}>
+                <a href={`#${heading.slug}`}>{heading.text}</a>
+              </li>
+            ))}
+          </ul>
+        </aside>
+      )
+    }
+  </div>
+</Base>
+
+<script>
+  // The sidebar is a <details>: open on wide screens, a fold-out menu on narrow ones.
+  const nav = document.querySelector<HTMLDetailsElement>('[data-docs-nav]');
+  if (nav) {
+    const wide = matchMedia('(min-width: 1000px)');
+    const sync = () => (nav.open = wide.matches);
+    sync();
+    wide.addEventListener('change', sync);
+  }
+
+  // Highlight the heading being read in "On this page".
+  const links = [...document.querySelectorAll<HTMLAnchorElement>('.docs-toc a')];
+  if (links.length) {
+    const targets = links.map((link) => document.getElementById(decodeURIComponent(link.hash.slice(1)))).filter((el): el is HTMLElement => el !== null);
+    const observer = new IntersectionObserver(
+      (items) => {
+        for (const item of items) {
+          if (!item.isIntersecting) continue;
+          links.forEach((link) => link.classList.toggle('active', link.hash === `#${encodeURIComponent(item.target.id)}` || link.hash === `#${item.target.id}`));
+        }
+      },
+      { rootMargin: '-80px 0px -70% 0px' },
+    );
+    targets.forEach((target) => observer.observe(target));
+  }
+
+  // Search: the index loads on first use; matches by title, headings, then text.
+  interface Entry {
+    slug: string;
+    title: string;
+    section: string;
+    description: string;
+    headings: { slug: string; text: string }[];
+    text: string;
+  }
+  const box = document.querySelector<HTMLElement>('[data-docs-search]');
+  if (box) {
+    const input = box.querySelector<HTMLInputElement>('input')!;
+    const results = box.querySelector<HTMLElement>('.docs-search-results')!;
+    let index: Entry[] | null = null;
+    let loading: Promise<void> | null = null;
+    let active = -1;
+
+    const load = () =>
+      (loading ??= fetch(box.dataset.index!)
+        .then((res) => res.json())
+        .then((data: Entry[]) => {
+          index = data;
+        })
+        .catch(() => {
+          index = [];
+        }));
+
+    const escapeHtml = (s: string) => s.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]!);
+    const mark = (s: string, words: string[]) => {
+      let html = escapeHtml(s);
+      for (const word of words) html = html.replace(new RegExp(`(${word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi'), '<mark>$1</mark>');
+      return html;
+    };
+    const snippet = (text: string, word: string) => {
+      const at = text.toLowerCase().indexOf(word);
+      if (at < 0) return '';
+      const start = Math.max(0, at - 60);
+      return (start > 0 ? '…' : '') + text.slice(start, at + 110).trim() + '…';
+    };
+
+    const close = () => {
+      results.hidden = true;
+      input.setAttribute('aria-expanded', 'false');
+      active = -1;
+    };
+
+    const render = () => {
+      const query = input.value.trim().toLowerCase();
+      if (!query || !index) return close();
+      const words = query.split(/\s+/).filter((w) => w.length > 1 || query.length === 1);
+      const scored: { entry: Entry; score: number; heading?: { slug: string; text: string } }[] = [];
+      for (const entry of index) {
+        let score = 0;
+        let heading: Entry['headings'][number] | undefined;
+        const title = entry.title.toLowerCase();
+        const body = entry.text.toLowerCase();
+        let all = true;
+        for (const word of words) {
+          const inTitle = title.includes(word);
+          const match = entry.headings.find((h) => h.text.toLowerCase().includes(word));
+          const inBody = body.includes(word) || entry.description.toLowerCase().includes(word);
+          if (!inTitle && !match && !inBody) all = false;
+          if (inTitle) score += 10;
+          if (match) {
+            score += 5;
+            heading ??= match;
+          }
+          if (inBody) score += 1 + Math.min(4, body.split(word).length - 1) * 0.25;
+        }
+        if (all && score > 0) scored.push({ entry, score, heading: title.includes(query) ? undefined : heading });
+      }
+      scored.sort((a, b) => b.score - a.score);
+      const top = scored.slice(0, 8);
+      results.innerHTML = top.length
+        ? top
+            .map(({ entry, heading }, i) => {
+              const href = `${box.dataset.base}${entry.slug}/${heading ? `#${heading.slug}` : ''}`;
+              const where = heading ? ` › ${mark(heading.text, words)}` : '';
+              const text = snippet(entry.text, words[0] ?? query) || entry.description;
+              return `<a role="option" id="docs-hit-${i}" href="${href}"><small>${escapeHtml(entry.section)}</small><strong>${mark(entry.title, words)}${where}</strong><span>${mark(text, words)}</span></a>`;
+            })
+            .join('')
+        : `<p class="docs-search-empty">Nothing matches “${escapeHtml(input.value.trim())}”.</p>`;
+      results.hidden = false;
+      input.setAttribute('aria-expanded', 'true');
+      active = -1;
+    };
+
+    const move = (step: number) => {
+      const hits = [...results.querySelectorAll<HTMLAnchorElement>('a')];
+      if (!hits.length) return;
+      active = (active + step + hits.length) % hits.length;
+      hits.forEach((hit, i) => hit.classList.toggle('active', i === active));
+      hits[active]!.scrollIntoView({ block: 'nearest' });
+      input.setAttribute('aria-activedescendant', hits[active]!.id);
+    };
+
+    input.addEventListener('focus', () => void load().then(render));
+    input.addEventListener('input', () => void load().then(render));
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowDown') (e.preventDefault(), move(1));
+      else if (e.key === 'ArrowUp') (e.preventDefault(), move(-1));
+      else if (e.key === 'Enter') {
+        const hits = results.querySelectorAll<HTMLAnchorElement>('a');
+        const hit = hits[active >= 0 ? active : 0];
+        if (hit) location.href = hit.href;
+      } else if (e.key === 'Escape') {
+        close();
+        input.blur();
+      }
+    });
+    document.addEventListener('click', (e) => {
+      if (!box.contains(e.target as Node)) close();
+    });
+    document.addEventListener('keydown', (e) => {
+      const typing = e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement || (e.target as HTMLElement)?.isContentEditable;
+      if (e.key === '/' && !typing) {
+        e.preventDefault();
+        input.focus();
+      }
+    });
+  }
+</script>
