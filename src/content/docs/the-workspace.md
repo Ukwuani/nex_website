@@ -5,6 +5,8 @@ description: Find your way around the Nexus web app - the sidebar, the command p
 
 The Nexus web app is where engineers and administrators configure the gateway, and where everyone can see views, alarms, trends and reports. Operators usually work in a full-screen [application](../applications/) instead.
 
+![The Nexus workspace: the sidebar grouped into Operate, Engineer and System on the left, and the top bar with search, gateway status, the clock, the alarm bell and the account menu](../../assets/docs/devices.webp)
+
 ## The sidebar
 
 Sections are grouped by what you do with them:

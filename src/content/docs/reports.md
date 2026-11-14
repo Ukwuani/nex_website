@@ -13,6 +13,8 @@ Open **Reports** for the built-in reports, your own report templates, schedules,
 | **Schedules** | Reports that run on their own |
 | **History** | Every scheduled run, with its file |
 
+![The Alarm report tab with a time range, a priority filter, CSV and PDF buttons, and the alarm events in the range](../../assets/docs/reports.webp)
+
 ## Custom reports
 
 A custom report template is a list of **blocks**:

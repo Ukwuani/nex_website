@@ -463,6 +463,22 @@
   margin-top: 1em;
 }
 
+/* Screenshots: a paragraph holding only an image. */
+.docs-prose p:has(> img:only-child) {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+}
+
+.docs-prose img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  background: #0b0d12;
+}
+
 .docs-prose h2 {
   margin-top: 2.4em;
   padding-top: 0.6em;
@@ -608,4 +624,37 @@
     color: var(--shiki-dark) !important;
     background-color: var(--shiki-dark-bg) !important;
   }
+}
+
+/* ---------- Screenshot lightbox ---------- */
+
+.docs-article img {
+  cursor: zoom-in;
+}
+
+.docs-article img:focus-visible {
+  outline: 2px solid var(--accent, #6366f1);
+  outline-offset: 3px;
+}
+
+.docs-lightbox {
+  max-width: 96vw;
+  max-height: 96vh;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: zoom-out;
+}
+
+.docs-lightbox::backdrop {
+  background: rgb(5 8 15 / 0.82);
+}
+
+.docs-lightbox img {
+  display: block;
+  max-width: 96vw;
+  max-height: 96vh;
+  width: auto;
+  height: auto;
+  border-radius: var(--radius);
 }

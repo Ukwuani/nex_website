@@ -5,6 +5,8 @@ description: Chart historized tags together, move through history, zoom in on an
 
 **Trends** charts any historized tags together, live or over any period. Only tags with **Historize** turned on have history (see [Tags](../tags/#history)).
 
+![The Trends page: a list of historized tags on the left, four pens charted on stacked axes by unit, and a table of each pen’s latest, minimum, maximum and average](../../assets/docs/trends.webp)
+
 ## Making a chart
 
 1. Open **Trends**.

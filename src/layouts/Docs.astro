@@ -82,6 +82,10 @@ const toc = headings.filter((heading) => heading.depth === 2 || heading.depth ==
         <slot />
       </article>
 
+      <dialog class="docs-lightbox" aria-label="Enlarged screenshot">
+        <img alt="" />
+      </dialog>
+
       {
         (prev || next) && (
           <nav class="docs-pager" aria-label="Previous and next page">
@@ -133,6 +137,26 @@ const toc = headings.filter((heading) => heading.depth === 2 || heading.depth ==
     const sync = () => (nav.open = wide.matches);
     sync();
     wide.addEventListener('change', sync);
+  }
+
+  // Screenshots open full size: click, or Enter when focused; click or Escape closes.
+  const lightbox = document.querySelector<HTMLDialogElement>('.docs-lightbox');
+  const big = lightbox?.querySelector('img');
+  if (lightbox && big) {
+    for (const img of document.querySelectorAll<HTMLImageElement>('.docs-article img')) {
+      img.tabIndex = 0;
+      img.title = 'Enlarge';
+      const show = () => {
+        big.src = img.currentSrc || img.src;
+        big.alt = img.alt;
+        lightbox.showModal();
+      };
+      img.addEventListener('click', show);
+      img.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') (e.preventDefault(), show());
+      });
+    }
+    lightbox.addEventListener('click', () => lightbox.close());
   }
 
   // Highlight the heading being read in "On this page".

@@ -22,6 +22,8 @@ It does **not** hold history, users, API keys, enrollment tokens, OPC UA certifi
 
 ### Exporting and importing
 
+![The Project page: Export lists what a project file contains, with an option to include passwords and tokens; Import takes a project file and previews the changes](../../assets/docs/project.webp)
+
 - **In the app:** **Project** → download an export, or drop a file to preview exactly what an import would change, then apply it.
 - **From the command line:**
 

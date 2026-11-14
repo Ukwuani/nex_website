@@ -11,6 +11,8 @@ Tags, devices, alarms and history are shared by every application. A new gateway
 
 Open `/apps` to see the applications you may open (with only one, it opens straight away), or a direct link from your engineer.
 
+![An application running full-screen with its own navigation. A pump faceplate is open as a popup, showing the pump has tripped, with Auto, Manual, Start, Stop and Reset trip controls and a short trend of motor current](../../assets/docs/faceplate.webp)
+
 - **The header** shows the application's title, its navigation menu, the clock and your name. Your account menu has **Sign out**.
 - **The navigation menu** opens views. It is either a menu bar in the header (submenus drop down) or a side panel (submenus fold out). Some applications navigate with buttons inside the views instead.
 - **The alarm ribbon** under the header shows the newest unacknowledged alarm that belongs to the screen you are on. Acknowledge it there, or open the list.

@@ -26,6 +26,8 @@ A role is a set of permissions:
 
 ## Built-in roles
 
+![The Roles tab showing the four built-in roles, each with the permissions it has and how many users hold it](../../assets/docs/roles.webp)
+
 | Role | Permissions |
 |---|---|
 | **viewer** | View |
@@ -53,6 +55,8 @@ Under **Users**:
 - **Reset password.**
 - **Sign out everywhere** ends all of someone's sessions.
 - **Asset scope** limits a user to **permitted asset subtrees** (see [Assets](../assets/#limiting-users-to-parts-of-the-plant)).
+
+![The Users tab listing accounts with their role, how they sign in, their last sign-in and whether they are active](../../assets/docs/users.webp)
 
 A disabled account, a role change or a sign-out applies to open sessions within seconds, and open live-value connections close within 15 seconds. The gateway always keeps at least one active administrator.
 

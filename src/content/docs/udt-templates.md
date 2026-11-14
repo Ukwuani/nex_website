@@ -7,6 +7,8 @@ A **UDT template** (user-defined type) describes one kind of equipment: a *Pump*
 
 Open **UDT Templates** to see templates on the left and the selected template's members, parameters and instances on the right.
 
+![The Pump UDT template with its parameters and a table of members, each with a kind, data type, source address and alarms](../../assets/docs/udt.webp)
+
 ## Create a template
 
 1. Choose **New template** and name it, for example `Pump`.

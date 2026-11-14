@@ -7,6 +7,8 @@ A **tag** is a named value with a quality and a timestamp. Everything in Nexus w
 
 Open **Tag Explorer** to see the tag tree. Select a folder to see its tags with live values, quality and diagnostics. Engineers can create, edit, move and delete folders and tags; everyone else can browse and, with the *Operate* permission, write values.
 
+![Tag Explorer showing a folder tree of tags with their units, live values and Write and Toggle buttons](../../assets/docs/tags.webp)
+
 ## Tag IDs and paths
 
 Each tag has two names:

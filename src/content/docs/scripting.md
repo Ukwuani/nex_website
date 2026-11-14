@@ -60,6 +60,8 @@ Each script has a name, can be enabled or disabled, and shows when it last ran a
 
 Scheduled scripts use the same schedule fields as report schedules, in a time zone, so 06:00 stays 06:00 across daylight saving. The editor shows the next three runs. A run still going when the next is due isn't doubled, and runs missed while the gateway was stopped (or standby) are not made up. Use a timer script for *every N seconds*.
 
+![A scheduled gateway script set to run Monday to Friday at 06:00 in the Europe/London time zone, with the next run times listed above its code](../../assets/docs/scripting.webp)
+
 ```js
 // Mon-Fri 06:00, 14:00, 22:00: log the shift's production
 const made = nexus.tag.readValue('plant.line1.count');

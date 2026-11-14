@@ -5,6 +5,8 @@ description: Watch the gateway's readiness, its built-in health checks and alarm
 
 **System Health** shows how the gateway itself is doing. Everyone can open it; some panels are for administrators.
 
+![System Health: service, readiness, uptime and checks passing, with the PostgreSQL and QuestDB dependency checks](../../assets/docs/health.webp)
+
 ## Readiness
 
 The top of the page shows whether the gateway is up and its dependencies respond: PostgreSQL and QuestDB, refreshed every 5 seconds. Field devices are deliberately not part of readiness; each has its own `_system.<device>.connected` tag.

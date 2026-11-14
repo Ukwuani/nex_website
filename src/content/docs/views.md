@@ -13,6 +13,8 @@ Open **Views** to see the views of the application selected in the bar at the to
 - **Design with AI** asks the [AI assistant](../ai-assistant/) to draft one from your tags.
 - **Symbol library** manages your own symbols (see [Symbol library](../symbol-library/)).
 
+![The Views page for an application, showing its views as cards with the Preview, Open, Export, Versions, Settings and Publish controls above them](../../assets/docs/views-list.webp)
+
 ## The view editor
 
 The editor has three parts:
@@ -20,6 +22,8 @@ The editor has three parts:
 - **The palette** on the left: symbols grouped as *Process*, *Controls & data* and *Layout*, then your library symbols.
 - **The canvas** in the middle, where you place and arrange symbols.
 - **The property panel** on the right, for the selected symbol. With nothing selected, it shows the view's own settings: name, asset, parameters, layout, barcode scans and alarm ribbon.
+
+![The view editor: the symbol palette on the left, the canvas in the middle, and view settings such as layout, scale and barcode scans on the right](../../assets/docs/view-editor.webp)
 
 Drag a symbol from the palette onto the canvas, then set its **tag** in the property panel. Most symbols have a main tag that drives their main property: a tank's level, a pump's running state, a value's number. Save with the save button; the view is part of the application's draft until it is published.
 

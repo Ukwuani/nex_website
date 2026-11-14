@@ -18,6 +18,8 @@ Open **Assets** to see the tree. Select an asset to see its details and everythi
 
 ## Building the hierarchy
 
+![An asset hierarchy for a plant: a site with areas such as Intake, Filtration and Clearwell, each holding equipment, with the selected asset’s devices, tags and views on the right](../../assets/docs/assets.webp)
+
 1. Choose **New root asset**, usually a site or an area.
 2. Select it and choose **Add child**: areas under a site, lines under an area, and so on.
 3. Give each asset a name, a type and a description.

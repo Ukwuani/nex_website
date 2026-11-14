@@ -67,6 +67,13 @@ operators, engineers and administrators.
   under a GitHub Pages subfolder too.
 - Facts come from the product: the app's own labels, `DEPLOYMENT.md` and the code. When the product
   changes, update the matching page. The claims guardrails below apply to the docs too.
+- Screenshots are WebP files in `src/assets/docs/`, added with an ordinary Markdown image and a
+  relative path (`![What it shows](../../assets/docs/trends.webp)`), so Astro sizes them and
+  loads them lazily. Readers can click one to see it full size. Write alt text that says what the
+  screen shows.
+- They come from a gateway running the Riverside demo plant (`deploy/demo` in the Nexus repo), in
+  the app's default dark theme, at 1440×900 and 2x. Convert each to WebP 1600 px wide
+  (`cwebp -q 82 -resize 1600 0 in.png -o out.webp`). Retake a screenshot when its screen changes.
 
 ## Product visuals
 

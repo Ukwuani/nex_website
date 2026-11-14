@@ -7,6 +7,8 @@ A **device** is one connection: a PLC, a meter, a gateway in front of serial equ
 
 Open **Devices** to see every device with its protocol, address, connection state and how many tags it serves. Choose **Add device** to create one.
 
+![The Edit Device dialog for a Modbus TCP device, with its name, asset, transport, host, port and unit ID](../../assets/docs/device-edit.webp)
+
 ## Supported protocols
 
 | Protocol | Connects to | How values arrive |

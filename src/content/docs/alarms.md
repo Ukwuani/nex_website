@@ -55,6 +55,8 @@ Open **Alarms → Rules → Add rule** and set:
 | **Operators** | On by default. Off: operator screens leave the alarm out, for alarms only engineers act on. The Alarms page, reports and notifications still include it |
 | **Routes** and **Escalate** | Who is told (see [Notifications and on-call](../notifications-and-on-call/)) |
 
+![The alarm Rules tab: a row for adding a rule, and a table of rules with their tag, type, setpoint, deadband, delay, priority and options](../../assets/docs/alarm-rules.webp)
+
 Rules created by [UDT templates](../udt-templates/#alarms-on-members) are marked *from a UDT template*. Change them in the template, or override the setpoint on the instance.
 
 ### Alarm details
@@ -78,11 +80,15 @@ Open a rule's **details** for behaviour and for what the operator is told:
 
 **Alarms → Journal** shows the most recent 100 events matching your filters (priority, state, area or equipment, tag, and a from/to period), refreshed every 10 seconds. Open an event to see its timeline: activation, every notification sent (failed ones with the reason), who acknowledged it and their note, and the return to normal.
 
+![The alarm journal with filters for area, tag, priority, state and time, and an active, unacknowledged alarm with Ack and Shelve buttons](../../assets/docs/alarm-journal.webp)
+
 The journal outlives the configuration. Each event keeps the tag path, units, alarm type and the acknowledging person's name as they were at the time, so renaming or deleting a tag, rule or user doesn't change history. An alarm that was active when its rule was deleted or disabled ends then.
 
 ## Acknowledging
 
 Operators with the *Acknowledge alarms* permission acknowledge an alarm from the ribbon, the bell, an alarm list in a view, the journal, or the link in a notification. An acknowledgement can carry a note, such as *Breaker reset, monitoring*. Acknowledgements are recorded with the person's name.
+
+![An alarm opened from the journal: what to do, the cause and the consequence, its timeline, and a note field with the Acknowledge button](../../assets/docs/alarm-detail.webp)
 
 ## Shelving
 

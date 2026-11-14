@@ -5,6 +5,8 @@ description: What Nexus is, the parts it is made of, and the ideas the rest of t
 
 Nexus is an industrial IoT and SCADA platform. One **gateway** connects to your PLCs, meters and edge devices, keeps their values and history, raises alarms, and serves everything people and other systems need: operator screens, trends, reports, scripts and integrations. It all runs in a web browser, so control-room screens, laptops, tablets and phones need nothing installed.
 
+![An operator screen for a water treatment plant: live values along the top, the process with its pumps and filters, short trends, and an alarm banner showing two unacknowledged alarms](../../assets/docs/operator-app.webp)
+
 ## What you can do with it
 
 - **Connect equipment.** Read and write PLCs over Modbus, Siemens S7, EtherNet/IP, Omron FINS, OPC UA and MQTT Sparkplug B. A built-in simulator gives you values before any hardware is connected.

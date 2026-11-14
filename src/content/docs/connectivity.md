@@ -32,6 +32,8 @@ The gateway alarms 30 days before its certificate expires (see [System health](.
 
 The gateway can serve its tags to SCADA systems, MES and historians over OPC UA.
 
+![The OPC UA server settings on the Connectivity page: the port, security modes and access options, with the server’s status alongside](../../assets/docs/connectivity.webp)
+
 - Every tag, or only the folders you choose, appears under `Objects/Nexus/<tag folders>`, with NodeIds `ns=<urn:nexus:tags>;s=<tag id>`. Values, quality and timestamps are pushed as they change, and the address space follows tag edits without dropping subscriptions.
 - **Users** sign in with their Nexus email and password, or their Active Directory / LDAP username and password. Everyone can browse and read; roles with *Operate* can write, when writes are allowed. Anonymous sessions, if enabled, are read-only. Every write is checked and audited like one from the web app.
 - **Security:** endpoints for *None* and/or *Sign* and *SignAndEncrypt* (Basic256Sha256, Aes128_Sha256_RsaOaep, Aes256_Sha256_RsaPss). A client on a secure endpoint is refused until its certificate is trusted: connect once, then trust it in the **Client certificates** list, or turn on *Trust new client certificates automatically* while commissioning.
