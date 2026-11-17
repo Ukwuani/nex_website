@@ -1,5 +1,6 @@
 ---
 import Logo from './Logo.astro';
+import Wordmark from './Wordmark.astro';
 import Icon from './Icon.astro';
 import { productPages, audiencePages } from '../data/product';
 import { site } from '../config';
@@ -12,9 +13,8 @@ const inProduct = [...productPages, ...audiencePages].some((p) => url(p.href) ==
 
 <header class="site-header" data-header>
   <div class="container header-inner">
-    <a href={url('/')} class="brand" aria-label="Nexus home">
-      <Logo size={28} />
-      <span>Nexus</span>
+    <a href={url('/')} class="brand" aria-label="Airogine home">
+      <Wordmark />
     </a>
 
     <nav class="nav" aria-label="Main">
@@ -26,10 +26,17 @@ const inProduct = [...productPages, ...audiencePages].some((p) => url(p.href) ==
           aria-controls="product-menu"
           data-dropdown-toggle
         >
-          Product <Icon name="chevron-down" size={16} />
+          Nexus <Icon name="chevron-down" size={16} />
         </button>
         <div class="mega" id="product-menu">
           <div class="mega-panel">
+            <a class="mega-head" href={url('/')}>
+              <Logo size={32} />
+              <span class="mega-text">
+                <strong>Nexus</strong>
+                <small>SCADA, HMI and IIoT in one gateway, used entirely from a browser</small>
+              </span>
+            </a>
             <ul>
               {
                 productPages.map((p) => (
@@ -84,7 +91,7 @@ const inProduct = [...productPages, ...audiencePages].some((p) => url(p.href) ==
 
   <div class="mobile-menu" id="mobile-menu" hidden>
     <div class="container">
-      <p class="mobile-heading">Product</p>
+      <p class="mobile-heading">Nexus</p>
       <ul class="mobile-product">
         {
           productPages.map((p) => (

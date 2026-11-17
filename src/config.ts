@@ -2,10 +2,10 @@
 // product owner; see "Open questions" in README.md.
 
 export const site = {
-  name: 'Nexus',
-
-  // OPEN: the company behind Nexus, shown in the footer copyright line.
-  company: 'Nexus',
+  // Airogine makes Nexus, its only product: the site is Airogine's, and every
+  // product page is about Nexus.
+  company: 'Airogine',
+  product: 'Nexus',
 
   // The user documentation (src/content/docs/), and the page the deployment
   // guide links point at.

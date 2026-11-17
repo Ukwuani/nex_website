@@ -1,6 +1,8 @@
-# Nexus website
+# Airogine website
 
-The marketing site for Nexus, built from the product website brief (27 Oct 2026). It is a static
+The website of Airogine, the company that makes Nexus, its only product (as Inductive Automation
+makes Ignition). The site carries Airogine's name in the header, footer, legal lines and Open Graph
+site name; every product page and the documentation are about Nexus. Built from the product website brief (27 Oct 2026). It is a static
 [Astro](https://astro.build) site: plain HTML and CSS, a few lines of JavaScript for the menus and
 the demo form, and no tracking.
 
@@ -137,7 +139,10 @@ the domain, which is in `astro.config.mjs`.
   `/docs/users-and-roles/`, `/docs/sign-in-providers/` and `/docs/redundancy/`.
 - **Security overview PDF**: the download button on `/security/` appears once
   `securityOverviewPdf` is set.
-- **Company name**: `company` is used in the footer copyright line.
+- **Company and product**: `company` (Airogine) is used in the footer copyright line, `product` (Nexus)
+  names the product. The header and footer show the Airogine wordmark (`src/components/Wordmark.astro`,
+  type only until there is a logo); the Nexus mark (`Logo.astro`) stays with the product, in the
+  Nexus menu and the favicon.
 - **Privacy policy**: `/privacy/` is a stub that needs a real, legally reviewed policy.
 - **Pricing and main call to action**: there is no Pricing page. Book a demo is the call to action
   throughout, as the brief proposes.

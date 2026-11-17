@@ -8,7 +8,7 @@ import Footer from '../components/Footer.astro';
 import { url } from '../lib/url';
 
 interface Props {
-  /** Under 60 characters, pairing "Nexus" with what the page is about. */
+  /** Under 60 characters, pairing "Nexus" or "Airogine" with what the page is about. */
   title: string;
   /** Under 155 characters. */
   description: string;
@@ -36,7 +36,7 @@ const og = new URL(url(ogImage), Astro.site);
     <meta name="theme-color" content="#f5f6fa" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#07090e" media="(prefers-color-scheme: dark)" />
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Nexus" />
+    <meta property="og:site_name" content="Airogine" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />

@@ -454,6 +454,13 @@ kbd,
   flex: none;
 }
 
+.wordmark {
+  font-size: 1.25rem;
+  font-weight: 750;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
 .nav {
   display: none;
   align-items: center;
@@ -511,6 +518,11 @@ kbd,
   border-radius: var(--radius);
   background: var(--surface);
   box-shadow: var(--shadow-lg);
+}
+
+.mega .mega-head {
+  align-items: center;
+  margin: 8px 8px 0;
 }
 
 .mega ul {

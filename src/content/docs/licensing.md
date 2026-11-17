@@ -50,14 +50,14 @@ A license is issued for the gateway's **install ID**. The ID is created when the
 
 This works on any gateway, with or without internet access.
 
-1. On **License**, download the **activation request** (or copy the install ID) and send it to your Nexus supplier.
+1. On **License**, download the **activation request** (or copy the install ID) and send it to Airogine, or to the integrator you bought Nexus through.
 2. Add the `.nexus-license` file you get back with **Add a license**. You can choose the file or paste its text.
 
 ### Online, with an activation key
 
 A gateway that can reach the internet can activate with a key instead:
 
-1. On **License**, choose **Activate online** and enter the activation key from your supplier.
+1. On **License**, choose **Activate online** and enter the activation key from Airogine or your integrator.
 2. The gateway fetches its license, and from then on fetches renewals by itself, asking once a day. **Check for a renewal** asks now.
 
 If the license server can't be reached, the license keeps working and the page says so. The gateway needs outbound HTTPS to the license server.
@@ -66,7 +66,7 @@ If the license server can't be reached, the license keeps working and the page s
 
 A central gateway licenses its edge gateways for you, over the [gateway network](../gateway-network/):
 
-1. On the central, open **License → Edge gateways** and download the **activation request**. It covers every edge that has connected, with each edge's install ID. Send it to your supplier.
+1. On the central, open **License → Edge gateways** and download the **activation request**. It covers every edge that has connected, with each edge's install ID. Send it to Airogine or your integrator.
 2. Add the file they send back (one license per edge) with **Add licenses**. Each license is installed on its edge straight away if it's connected, or when it next connects. The table shows where each one got to.
 
 An edge keeps a license that lasts longer than the one sent, so an old copy on the central never takes a renewal away. Each edge's license state also shows under **Gateway Network → Edge gateways**.

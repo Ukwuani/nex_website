@@ -1,5 +1,5 @@
 ---
-import Logo from './Logo.astro';
+import Wordmark from './Wordmark.astro';
 import { productPages, audiencePages } from '../data/product';
 import { site } from '../config';
 import { url } from '../lib/url';
@@ -10,16 +10,15 @@ const year = new Date().getFullYear();
 <footer class="site-footer">
   <div class="container footer-grid">
     <div class="footer-brand">
-      <a href={url('/')} class="brand" aria-label="Nexus home">
-        <Logo size={28} />
-        <span>Nexus</span>
+      <a href={url('/')} class="brand" aria-label="Airogine home">
+        <Wordmark />
       </a>
-      <p>SCADA, HMI and IIoT in one gateway, used entirely from a browser.</p>
+      <p>Airogine makes Nexus: SCADA, HMI and IIoT in one gateway, used entirely from a browser.</p>
       <a class="btn btn-primary btn-sm" href={url('/demo/')}>Book a demo</a>
     </div>
 
     <nav aria-labelledby="footer-product">
-      <h2 id="footer-product">Product</h2>
+      <h2 id="footer-product">Nexus</h2>
       <ul>
         {productPages.map((p) => <li><a href={url(p.href)}>{p.name}</a></li>)}
       </ul>
