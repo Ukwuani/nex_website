@@ -47,7 +47,7 @@ Choose **Gateway events → New** and pick a kind:
 | Kind | Runs | Gets |
 |---|---|---|
 | **Timer** | Every interval. A run never overlaps the previous one | |
-| **Scheduled** | At set times: chosen days of the week at one or more times, or a day of the month, in a time zone | `scheduledFor`: when the run was due |
+| **Scheduled** | At set times: chosen days of the week at one or more times, a day of the month, or a cron expression, in a time zone | `scheduledFor`: when the run was due |
 | **Startup** | When the gateway starts, and again whenever you save the script | |
 | **Shutdown** | When the gateway stops (5-second limit) | |
 | **Tag change** | When any of the selected tags changes | `tagId`, `value`, `previousValue`, `quality` |
@@ -58,7 +58,27 @@ Each script has a name, can be enabled or disabled, and shows when it last ran a
 
 ### Scheduled scripts
 
-Scheduled scripts use the same schedule fields as report schedules, in a time zone, so 06:00 stays 06:00 across daylight saving. The editor shows the next three runs. A run still going when the next is due isn't doubled, and runs missed while the gateway was stopped (or standby) are not made up. Use a timer script for *every N seconds*.
+Scheduled scripts use the same schedule fields as report schedules, in a time zone, so 06:00 stays 06:00 across daylight saving:
+
+- **Weekly:** chosen days at one or more times, such as *Mon-Fri at 06:00 and 18:00*.
+- **Monthly:** a day of the month, or the last day, such as *the last day at 23:30*.
+- **Cron:** a cron expression (below).
+
+The editor shows the next three runs. A run still going when the next is due isn't doubled, and runs missed while the gateway was stopped (or standby) are not made up. Use a timer script for *every N seconds*.
+
+#### Cron expressions
+
+Cron takes the standard five fields: minute, hour, day of month, month and day of week. Each takes `*`, a value, a range (`1-5`), a list (`1,15`) and steps (`*/15`), and months and days can be names (`JAN`, `MON`).
+
+| Expression | Runs |
+|---|---|
+| `*/15 6-18 * * 1-5` | Every 15 minutes from 06:00 to 18:45, Monday to Friday |
+| `0 6,14,22 * * *` | At each shift change |
+| `30 2 1 JAN,JUL *` | At 02:30 on 1 January and 1 July |
+| `0 9 1 * FRI` | At 09:00 on the 1st, and every Friday |
+| `@hourly`, `@daily`, `@weekly`, `@monthly`, `@yearly` | As they say |
+
+Sunday is 0 or 7. As in cron, when both the day of month and the day of week are set, a day matching either runs. The editor says what's wrong with an expression as you type it, and reads common ones in words (*Mon-Fri at 06:00*). The shortest step is a minute.
 
 ![A scheduled gateway script set to run Monday to Friday at 06:00 in the Europe/London time zone, with the next run times listed above its code](../../assets/docs/scripting.webp)
 

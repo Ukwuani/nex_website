@@ -9,7 +9,7 @@ export interface DocsSection {
 }
 
 export const docsNav: DocsSection[] = [
-  { title: 'Getting started', icon: 'rocket', pages: ['introduction', 'installation', 'quick-start', 'the-workspace'] },
+  { title: 'Getting started', icon: 'rocket', pages: ['introduction', 'installation', 'licensing', 'quick-start', 'the-workspace'] },
   { title: 'Connect and model', icon: 'plug', pages: ['devices', 'tags', 'expressions', 'udt-templates', 'assets'] },
   { title: 'Screens for operators', icon: 'monitor-smartphone', pages: ['views', 'symbol-library', 'applications', 'barcode-scanning'] },
   { title: 'Alarms, history and reports', icon: 'bell-ring', pages: ['alarms', 'notifications-and-on-call', 'trends', 'reports'] },

@@ -37,6 +37,7 @@ Engineers can schedule any report under **Reports → Schedules**.
 
 - **Weekly:** on chosen days at one or more times, for example *Mon-Fri at 06:00, 14:00 and 22:00* for shift changes.
 - **Monthly:** on a day of the month, or the last day.
+- **Cron:** a cron expression, such as `0 6,14,22 * * *` for every shift change. See [Cron expressions](../scripting/#cron-expressions).
 
 Times are in the schedule's **time zone**, so 06:00 stays 06:00 across daylight saving. A time that doesn't exist on the spring-forward day runs an hour later; one that happens twice on the fall-back day runs once.
 

@@ -80,14 +80,29 @@ When the database can't be written, rows are buffered on the gateway's disk and 
 
 ## Email
 
-Administrators set the mail server under **Connectivity → Email**: server, port, security (STARTTLS when offered on 587 or 25, TLS on 465, or STARTTLS required), user name and password, and the From address.
+Administrators set up mail servers under **Connectivity → Email** as named **profiles**: say *Alarms* through the plant's relay and *Reports* through Microsoft 365. Each has a server, port, security (STARTTLS when offered on 587 or 25, TLS on 465, or STARTTLS required), user name and password, and the From address.
 
-- **Send test** tries the settings in the form, saved or not, and shows the server's answer when it fails (`535 Authentication failed`, `connect ECONNREFUSED`).
-- Saved settings apply at once to alarm notifications, on-call tests and scheduled reports, on both gateways of a redundant pair.
-- The password is stored encrypted and never shown again. Changes are in the audit log.
+- **Send test** in a profile's dialog tries the settings in the form, saved or not, and shows the server's answer when it fails (`535 Authentication failed`, `connect ECONNREFUSED`).
+- Saved profiles apply at once, on both gateways of a redundant pair.
+- Passwords are stored encrypted and never shown again. Changes are in the audit log.
 - Microsoft 365 and Gmail need SMTP AUTH enabled for the account, or an app password.
 
-Saved settings take precedence over the `SMTP_*` settings-file variables; **Use environment settings** goes back to those.
+One profile is the **default**: the first one always is, and any can be made the default from its menu. Where email goes out, you can pick a profile, and anything that doesn't uses the default:
+
+- an email **notification route**;
+- an **escalation policy**, for the people on call it emails;
+- a **report schedule's** email delivery.
+
+The pickers show once there are two profiles or more. Delete a profile and what used it falls back to the default, so no notification is lost. Engineers choosing a profile see only names, never servers or users.
+
+With no profile saved, the `SMTP_*` settings-file variables are used, and the first profile you add starts from them.
+
+## Cameras and web pages
+
+Administrators add cameras and allowed sites under **Connectivity → Cameras & web pages**, for the *Camera* and *Web page* symbols in views.
+
+- **Cameras:** each IP camera's MJPEG stream or JPEG snapshot address, as the gateway reaches it, with a user name and password if it needs one. The gateway fetches the camera and relays it, so the password never reaches a browser, and screens that can only reach the gateway can still show cameras on the plant network. **Show it** on a camera's row shows what a view will see.
+- **Web pages:** a Web page symbol shows the gateway's own pages, and the sites allowed here. Every other site the browser refuses to show. Allowing a site allows every page on it (`https://grafana.plant.local:3000`), and the site must also allow itself to be framed. Pages are sandboxed: forms and new windows work only when the symbol allows them.
 
 ## SMS
 

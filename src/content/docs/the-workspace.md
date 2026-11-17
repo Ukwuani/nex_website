@@ -23,11 +23,12 @@ Sections are grouped by what you do with them:
 | | Assets | The ISA-95 equipment hierarchy |
 | | Scripting | Gateway scripts, the script library, secrets and the console |
 | | Automation | The embedded Node-RED editor |
-| **System** | Connectivity | OPC UA server, MQTT, API and webhooks, SQL bridge, email, SMS, HTTPS, AI assistant |
+| **System** | Connectivity | OPC UA server, MQTT, API and webhooks, SQL bridge, email, SMS, cameras and web pages, HTTPS, AI assistant |
 | | Gateway Network | Links between edge and central gateways |
 | | System Health | Readiness, gateway checks, isolation, redundancy and this gateway's settings |
 | | Project | Export and import the whole configuration |
 | | Users | Users, roles and identity providers |
+| | License | The gateway's license, its edition, and edge gateways' licenses |
 
 You only see sections your role can use. For example, Scripting needs the *Manage scripts* permission, and Users and Automation need *Administer*. See [Users and roles](../users-and-roles/).
 
@@ -47,6 +48,7 @@ Press <kbd>Ctrl</kbd> + <kbd>K</kbd> (<kbd>⌘</kbd> + <kbd>K</kbd> on a Mac) an
 
 - **Standby.** In a redundant pair, the standby gateway shows a banner linking to the active one. You can look around on a standby, but writes and alarm acknowledgements are refused there. See [Redundancy](../redundancy/).
 - **Draft.** Views you are editing belong to the draft of their application until someone publishes it.
+- **License.** During the trial, a grace period or development mode, or after a subscription has lapsed, a banner says so and links to the License page. See [Licensing](../licensing/).
 
 ## Links you can share
 
