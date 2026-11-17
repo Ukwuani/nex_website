@@ -20,15 +20,15 @@ npm run check     # type-check .astro and .ts files
 
 ## Hosting
 
-Every push to `main` builds the site and publishes it to GitHub Pages
-(`.github/workflows/deploy.yml`). Pages serves a project site from a subfolder,
-`https://<user>.github.io/<repo>/`, so the workflow passes `SITE_URL` and `BASE_PATH` to the
-build. Internal links go through `url()` in `src/lib/url.ts`, which adds that prefix. Use it for
-any new root-relative link, or the link will break on Pages.
+The site is at **https://www.airogine.com**, hosted on Vercel, which builds and publishes every
+push to `main` (`airogine.com` redirects to `www`). The domain is `site` in `astro.config.mjs`.
 
-Built without those variables, the site lives at `/` on the domain in `astro.config.mjs`. Once
-the real domain is decided, either set it there and host `dist/` anywhere, or add it to Pages as
-a custom domain.
+It used to be published to GitHub Pages too. That workflow is gone so search engines see one copy
+of the site; turn Pages off in the repository's settings so the old copy stops being served.
+
+To build for somewhere else, such as a preview under a subfolder, set `SITE_URL` and `BASE_PATH`.
+Internal links go through `url()` in `src/lib/url.ts`, which adds the prefix. Use it for any new
+root-relative link.
 
 > **Node and Astro versions.** The site uses Astro 6 because this machine has Node 22.14, and
 > Astro 7 needs Node 22.23.4 or later. `npm audit` reports advisories against Astro before 7.3.2.
@@ -46,7 +46,8 @@ a custom domain.
 | `/security/` | Security and reliability, for the IT/OT reviewer |
 | `/demo/` | Book a demo form |
 | `/docs/` | The user documentation: a home page and one page per topic (see below) |
-| `/privacy/` | Placeholder until the open questions are answered (not indexed) |
+| `/privacy/` | Privacy policy (`src/pages/privacy.astro`) |
+| `/terms/` | Terms of use, with the trademark notice (`src/pages/terms.astro`) |
 
 The feature and audience pages share `src/layouts/Feature.astro`: headline, intro, proof points,
 then one large visual. Each page's own copy is at the top of its file in `src/pages/`. The audience
@@ -129,8 +130,6 @@ from the app's `Logo.tsx` and `favicon.svg`, and re-run `scripts/make-og.sh`.
 These map to the open questions in the brief. Everything configurable is in `src/config.ts`, except
 the domain, which is in `astro.config.mjs`.
 
-- **Domain**: `site` in `astro.config.mjs` is `https://www.example.com`. Canonical URLs, Open
-  Graph tags, `robots.txt` and the sitemap are all built from it.
 - **Demo form endpoint**: `demoFormAction` is empty. Until it is set, the form tells the visitor
   that nothing was sent rather than pretending to submit. It posts `name`, `email`, `company`,
   `role`, `protocols` and `devices`.
@@ -143,10 +142,26 @@ the domain, which is in `astro.config.mjs`.
   names the product. The header and footer show the Airogine wordmark (`src/components/Wordmark.astro`,
   type only until there is a logo); the Nexus mark (`Logo.astro`) stays with the product, in the
   Nexus menu and the favicon.
-- **Privacy policy**: `/privacy/` is a stub that needs a real, legally reviewed policy.
+- **Privacy policy and terms of use**: written from what the site actually does (no cookies,
+  analytics or third-party requests; the demo form; Vercel's logs) and what Nexus sends when it
+  licenses online. If the site starts using a form service, analytics or anything else that
+  handles personal information, update `/privacy/` in the same change. Both need legal review.
+  Still open in `site.legal`: `contactEmail` (until it's set, both pages say the address is
+  coming) and `state`, the US state Airogine is organized in (named as the governing law).
 - **Pricing and main call to action**: there is no Pricing page. Book a demo is the call to action
   throughout, as the brief proposes.
-- **Trademark line** in the footer: needs legal review.
+- **Social profiles**: `site.profiles` lists the company's profiles for the structured data.
+
+## Search engines
+
+- Every page has a canonical URL, a description, Open Graph and Twitter tags, and
+  `index, follow` (the 404 page is `noindex`). Keep titles under 60 characters and descriptions
+  between 70 and 160.
+- Structured data (JSON-LD) is built in `src/layouts/Base.astro`: Airogine as the Organization and
+  WebSite on every page, Nexus as a SoftwareApplication on the home page, a BreadcrumbList on
+  feature, docs, legal and other inner pages, and each docs page as a TechArticle about Nexus.
+- `robots.txt` and the sitemap (`/sitemap-index.xml`) are built from the domain. Submit the
+  sitemap in Google Search Console and Bing Webmaster Tools once the domain is verified there.
 
 ## Claims guardrails
 

@@ -1,0 +1,15 @@
+---
+// How to reach Airogine about the privacy policy or terms: the configured
+// address, or a note that it is coming.
+import { site } from '../config';
+
+const email = site.legal.contactEmail;
+---
+
+{
+  email ? (
+    <a href={`mailto:${email}`}>{email}</a>
+  ) : (
+    <span>the contact address that will be published on this page</span>
+  )
+}

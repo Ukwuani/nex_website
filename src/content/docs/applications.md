@@ -1,6 +1,7 @@
 ---
 title: Applications
 description: Publish views to operators as full-screen applications - navigation menus, docked panels, alarm ribbons and the horn, styles, session properties, messages and translations, drafts and versions, who may open them, public applications, kiosk screens, and how operators use them.
+summary: "Publish Nexus views to operators as full-screen applications: navigation, docked panels, alarm ribbons, versions, access by role and public screens."
 ---
 
 An **application** is what operators use: a line HMI, a maintenance app, an energy dashboard. It has its own views, navigation, title and colour, and runs full screen at `https://<gateway>/apps/<name>` in any browser. There are no engineering menus, and control-room screens, tablets and phones need nothing installed.

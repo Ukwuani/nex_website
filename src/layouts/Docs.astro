@@ -6,6 +6,7 @@ import Base from './Base.astro';
 import Icon from '../components/Icon.astro';
 import { docsNav, docsOrder } from '../data/docs';
 import { url } from '../lib/url';
+import { site } from '../config';
 import '../styles/docs.css';
 
 interface Heading {
@@ -31,9 +32,29 @@ const section = index >= 0 ? docsOrder[index]!.section : undefined;
 const prev = index > 0 ? docsOrder[index - 1] : undefined;
 const next = index >= 0 && index < docsOrder.length - 1 ? docsOrder[index + 1] : undefined;
 const toc = headings.filter((heading) => heading.depth === 2 || heading.depth === 3);
+
+// Search engines: the trail Home > Docs > page, and each page as a technical article about Nexus.
+const breadcrumbs = [{ name: 'Docs', path: url('/docs/') }, ...(slug ? [{ name: title, path: Astro.url.pathname }] : [])];
+const home = new URL(url('/'), Astro.site).href;
+const article = slug
+  ? [
+      {
+        '@type': 'TechArticle',
+        headline: title,
+        description,
+        url: new URL(Astro.url.pathname, Astro.site).href,
+        inLanguage: 'en',
+        ...(section ? { articleSection: section } : {}),
+        about: { '@type': 'SoftwareApplication', name: site.product, '@id': `${home}#nexus` },
+        author: { '@id': `${home}#organization` },
+        publisher: { '@id': `${home}#organization` },
+        isPartOf: { '@id': `${home}#website` },
+      },
+    ]
+  : [];
 ---
 
-<Base title={slug ? `${title}: Nexus docs` : title} description={description}>
+<Base title={slug ? `${title}: Nexus docs` : title} description={description} ogType={slug ? 'article' : 'website'} breadcrumbs={breadcrumbs} schema={article}>
   <div class="container docs-shell">
     <aside class="docs-sidebar" aria-label="Documentation">
       <details class="docs-nav-toggle" data-docs-nav>

@@ -1,6 +1,7 @@
 ---
 title: Gateway network
 description: Link gateways at different sites - edge gateways share tags, history and alarms with a central one over one outbound connection - and send tags from one gateway to another.
+summary: "Link Nexus gateways across sites: edge gateways share tags, history and alarms with a central one over a single outbound connection."
 ---
 
 Gateways at different sites, or on different networks, can link up. An **edge** gateway shares its tags with a **central** gateway, which then sees them as its own. Open **Gateway Network**:

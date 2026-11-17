@@ -1,6 +1,7 @@
 ---
 title: System health
 description: Watch the gateway's readiness, its built-in health checks and alarms (disk, certificates, clock, backups), self-healing parts, redundancy, and this machine's own settings.
+summary: "Watch a Nexus gateway's readiness, built-in health checks and alarms for disk, certificates, clock and backups, self-healing parts and redundancy."
 ---
 
 **System Health** shows how the gateway itself is doing. Everyone can open it; some panels are for administrators.

@@ -1,19 +1,179 @@
 ---
-// Placeholder. The policy is Airogine's, and depends on the form
-// service chosen for demo requests (open questions); it needs legal review.
-import Base from '../layouts/Base.astro';
+// Airogine's privacy policy for this website. It describes what the site
+// actually does - keep it in step: no cookies, no analytics, no third-party
+// requests (fonts are self-hosted), the demo form, and the host's logs. If any
+// of that changes, change this page in the same commit. Needs legal review.
+import Legal from '../layouts/Legal.astro';
+import LegalContact from '../components/LegalContact.astro';
+import { site } from '../config';
+import { url } from '../lib/url';
 ---
 
-<Base title="Privacy policy: Nexus by Airogine" description="How Airogine handles personal information." noindex>
-  <section class="page-hero">
-    <div class="container prose">
-      <p class="eyebrow">Legal</p>
-      <h1>Privacy policy</h1>
-      <p class="lead">The privacy policy will be published here before the site launches.</p>
-      <p>
-        This site sets no tracking cookies. The only personal information it asks for is in the demo request form, and that
-        is used only to arrange a demo.
-      </p>
-    </div>
-  </section>
-</Base>
+<Legal
+  title="Privacy policy"
+  description="What Airogine collects through this website, why, who it is shared with, how long it is kept, and the choices and rights you have."
+  updated={site.legal.privacyUpdated}
+>
+  <p class="legal-intro">
+    This policy explains how Airogine ("we", "us") handles personal information collected through this website. In
+    short: the site has no cookies, analytics or advertising, and the only personal information we ask for is what you
+    choose to put in the demo request form.
+  </p>
+
+  <h2 id="scope">What this policy covers</h2>
+  <p>
+    It covers this website and the documentation on it. It does not cover the Nexus software. Nexus runs on your own
+    servers, and the data it collects from your plant (tag values, alarms, history, users and their activity) stays there:
+    Airogine does not receive it. The only things Nexus sends to Airogine are covered under
+    <a href="#nexus">Nexus licensing</a> below.
+  </p>
+
+  <h2 id="collect">What we collect</h2>
+  <h3>What you give us</h3>
+  <p>When you book a demo, the form asks for:</p>
+  <ul>
+    <li>your name, work email address and company;</li>
+    <li>your role;</li>
+    <li>optionally, the protocols on your site and a description of your device list.</li>
+  </ul>
+  <p>
+    Please don't put anything in the device list that you aren't comfortable sharing with us, such as passwords, network
+    addresses or other security details of your plant. If you write to us, we receive what you send.
+  </p>
+
+  <h3>What is collected automatically</h3>
+  <p>
+    Like any website, the servers that deliver these pages receive technical information with each request: your IP
+    address, browser and device type, the page asked for, the referring page and the time. Our hosting provider records
+    it in short-lived logs that are used to deliver the site, keep it secure and fix problems. We don't use it to build
+    profiles of visitors.
+  </p>
+
+  <h3>What we don't do</h3>
+  <ul>
+    <li>The site sets <strong>no cookies</strong> and stores nothing in your browser.</li>
+    <li>There are <strong>no analytics, advertising or social media trackers</strong>, and no tracking pixels.</li>
+    <li>
+      Pages load nothing from other companies' servers: fonts, images and the documentation search are served from this
+      site.
+    </li>
+    <li>We don't sell personal information, and we don't share it for targeted advertising.</li>
+  </ul>
+
+  <h2 id="use">How we use it</h2>
+  <ul>
+    <li>To arrange and prepare your demo, and to answer your questions about Nexus.</li>
+    <li>To follow up about the demo and about Nexus afterwards. You can ask us to stop at any time.</li>
+    <li>To deliver the website, keep it secure and working, and prevent abuse.</li>
+    <li>To meet legal obligations, and to establish or defend legal claims.</li>
+  </ul>
+  <p>
+    For visitors in the European Economic Area or the United Kingdom: we handle demo requests because you asked us to
+    take steps towards a possible contract with you, or for our legitimate interest in answering enquiries about our
+    product. We handle the technical information above for our legitimate interest in running a secure website.
+  </p>
+
+  <h2 id="share">Who we share it with</h2>
+  <ul>
+    <li>
+      <strong>Service providers</strong> that run things for us under contract and only on our instructions: the hosting
+      provider that serves this site (Vercel), and the services we use to receive demo requests, send email and keep
+      track of our conversations with customers.
+    </li>
+    <li>
+      <strong>An integrator or distributor</strong> that resells Nexus in your region, if you ask us to put you in touch,
+      or agree to it.
+    </li>
+    <li>
+      <strong>Authorities</strong>, where the law requires it, or where it is needed to protect the rights, safety or
+      property of Airogine, our customers or others.
+    </li>
+    <li>
+      <strong>A buyer or successor</strong>, if Airogine is involved in a merger, acquisition or sale of its business, in
+      which case this policy continues to apply to the information transferred.
+    </li>
+  </ul>
+
+  <h2 id="nexus">Nexus licensing</h2>
+  <p>
+    If you use Nexus and activate a license online, the gateway sends Airogine's license server the activation key, the
+    gateway's install ID and name, and the Nexus version. Once a day it then asks for renewals, sending the install ID,
+    the current license's ID and the version. We use these to issue and renew licenses. An activation request you send
+    us by email carries the same install ID and gateway name. No plant data is ever sent.
+  </p>
+
+  <h2 id="retention">How long we keep it</h2>
+  <ul>
+    <li>
+      <strong>Demo requests and correspondence:</strong> while we are in contact with you about Nexus, and then for up to
+      two years after our last contact, unless you become a customer, in which case we keep what we need to manage the
+      relationship. You can ask us to delete it sooner.
+    </li>
+    <li><strong>Hosting logs:</strong> for the short period our hosting provider keeps them.</li>
+    <li>We keep information for longer only where the law requires it.</li>
+  </ul>
+
+  <h2 id="security">How we protect it</h2>
+  <p>
+    The site is served only over HTTPS. Access to the information you send us is limited to the people who need it to
+    answer you, and our service providers are chosen for their security practices. No system is perfectly secure, so we
+    can't guarantee that information will never be accessed without permission, but if something happens that affects
+    your information, we'll tell you as the law requires.
+  </p>
+
+  <h2 id="transfers">Where it is handled</h2>
+  <p>
+    Airogine is based in the United States, and our service providers may handle information in the United States and
+    other countries. Where we transfer personal information out of the European Economic Area or the United Kingdom, we
+    rely on safeguards the law recognizes, such as the European Commission's standard contractual clauses.
+  </p>
+
+  <h2 id="rights">Your choices and rights</h2>
+  <p>Wherever you are, you can ask us to:</p>
+  <ul>
+    <li>tell you what personal information we hold about you, and give you a copy;</li>
+    <li>correct it;</li>
+    <li>delete it;</li>
+    <li>stop contacting you about Nexus.</li>
+  </ul>
+  <p>
+    Depending on where you live, the law may give you further rights. Residents of US states with privacy laws, such as
+    California, may also ask what categories of information we collect and disclose, and have an authorized agent make
+    a request for them. Visitors in the European Economic Area or the United Kingdom may also object to how we use their
+    information or ask us to restrict it, ask for it in a portable format, and complain to their data protection
+    authority. We'll never treat you differently for using these rights.
+  </p>
+  <p>
+    To make a request, contact us at <LegalContact />. We'll confirm your request, may need to check that it is
+    yours, and answer within the time the law allows.
+  </p>
+  <p>
+    Because the site doesn't track visitors, there is nothing to opt out of with Global Privacy Control or Do Not Track
+    signals, and we don't sell or share personal information in any case.
+  </p>
+
+  <h2 id="children">Children</h2>
+  <p>
+    This site and Nexus are for businesses. They are not meant for children, and we don't knowingly collect personal
+    information from anyone under 16. If you believe a child has sent us information, contact us and we'll delete it.
+  </p>
+
+  <h2 id="links">Other websites</h2>
+  <p>
+    The site links to a few other websites, such as protocol and standards pages. Their own privacy policies apply when
+    you visit them.
+  </p>
+
+  <h2 id="changes">Changes to this policy</h2>
+  <p>
+    If we change how we handle personal information, we'll update this page and the date at the top. If a change is
+    significant, we'll make it clear on the site and, where we have your email address and the change affects you, tell
+    you before it applies.
+  </p>
+
+  <h2 id="contact">Contact</h2>
+  <p>
+    Questions about this policy or your information go to Airogine at <LegalContact />. See also our
+    <a href={url('/terms/')}>terms of use</a>.
+  </p>
+</Legal>

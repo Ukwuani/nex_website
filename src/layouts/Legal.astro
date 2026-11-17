@@ -1,0 +1,71 @@
+---
+// The privacy policy and terms of use: a title, when they last changed, and
+// readable long-form text.
+import Base from './Base.astro';
+import { site } from '../config';
+
+interface Props {
+  title: string;
+  description: string;
+  /** ISO date, shown as "Last updated". */
+  updated: string;
+}
+
+const { title, description, updated } = Astro.props;
+const updatedText = new Date(`${updated}T12:00:00Z`).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
+---
+
+<Base title={`${title} | ${site.company}`} description={description} breadcrumbs={[{ name: title, path: Astro.url.pathname }]}>
+  <section class="page-hero">
+    <div class="container legal">
+      <p class="eyebrow">Legal</p>
+      <h1>{title}</h1>
+      <p class="legal-updated">Last updated <time datetime={updated}>{updatedText}</time></p>
+      <slot />
+    </div>
+  </section>
+</Base>
+
+<style>
+  .legal {
+    max-width: 760px;
+  }
+  .legal-updated {
+    margin-top: 12px;
+    color: var(--text-2);
+    font-size: 0.9375rem;
+  }
+  .legal :global(h2) {
+    margin-top: 48px;
+    font-size: 1.375rem;
+    letter-spacing: -0.01em;
+  }
+  .legal :global(h3) {
+    margin-top: 28px;
+    font-size: 1.0625rem;
+  }
+  .legal :global(p),
+  .legal :global(ul) {
+    margin-top: 14px;
+    color: var(--text-2);
+    line-height: 1.65;
+  }
+  .legal :global(ul) {
+    padding-left: 22px;
+    list-style: disc;
+  }
+  .legal :global(li + li) {
+    margin-top: 8px;
+  }
+  .legal :global(strong) {
+    color: var(--text);
+  }
+  .legal :global(.legal-intro) {
+    margin-top: 28px;
+    color: var(--text);
+    font-size: 1.0625rem;
+  }
+  .legal :global(.legal-caps) {
+    font-size: 0.9375rem;
+  }
+</style>

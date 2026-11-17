@@ -1,6 +1,7 @@
 ---
 title: Trends
 description: Chart historized tags together - lines, areas, bars or steps, an axis for each unit, today against yesterday - move through history, zoom in on an event, and export what you see as CSV.
+summary: "Chart Nexus history: pens as lines, areas, bars or steps, an axis for each unit, today against yesterday, zoom into events and export CSV."
 ---
 
 **Trends** charts any historized tags together, live or over any period. Only tags with **Historize** turned on have history (see [Tags](../tags/#history)).

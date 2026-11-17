@@ -1,6 +1,7 @@
 ---
 title: Projects and packages
 description: Back up and move the whole configuration as a project file, or move one application, some symbols or some tag folders as a package - previewed before anything changes.
+summary: "Back up and move a Nexus configuration as a project, or move one application, some symbols or tag folders as a package, previewed first."
 ---
 
 Nexus moves configuration between gateways as JSON files:

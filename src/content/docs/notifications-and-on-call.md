@@ -1,6 +1,7 @@
 ---
 title: Notifications and on-call
 description: Tell people about alarms by email, SMS or webhook, cover nights and weekends with schedules, rosters and escalation policies, and let people acknowledge from the message.
+summary: "Send Nexus alarm notifications by email, SMS or webhook, cover nights with rosters and escalation policies, and acknowledge from the message."
 ---
 
 Nexus has two ways to tell people about an alarm, both under **Alarms**:

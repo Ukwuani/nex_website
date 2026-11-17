@@ -1,6 +1,7 @@
 ---
 title: Views
 description: Build operator screens - the view editor, symbols and controls, bindings and transforms, actions, popups, parameters, repeaters, view properties, events and scripts, styles, who sees what, layouts for every screen size, and keyboard shortcuts.
+summary: "Build Nexus operator screens: the view editor, symbols, bindings, actions, popups, view properties, events, scripts, styles and access rules."
 ---
 
 A **view** is one screen of live process graphics: tanks, pumps and valves, values, buttons, setpoints, charts and tables, bound to tags. Views belong to an [application](../applications/), which publishes them to operators.

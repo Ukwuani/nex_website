@@ -1,6 +1,7 @@
 ---
 title: Barcode and QR scanning
 description: Let operators scan barcodes and QR codes into a screen with a Zebra scan trigger, a USB or Bluetooth scanner, or the device's camera, and print QR labels that open equipment screens.
+summary: "Scan barcodes and QR codes into Nexus screens with a Zebra trigger, a USB or Bluetooth scanner or the camera, and print QR labels for equipment."
 ---
 
 Operators can scan barcodes and QR codes into a view: a batch label, a work order, a part number, or a QR label on a pump that opens its screen. Scans work with:

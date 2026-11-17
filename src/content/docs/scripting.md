@@ -1,6 +1,7 @@
 ---
 title: Scripting
 description: Run JavaScript on the gateway - tag scripts, gateway event scripts (timer, scheduled, startup, shutdown, tag change, alarm, message handler), a shared library, secrets, the console and the log.
+summary: "Run JavaScript on the Nexus gateway: tag scripts, timer, scheduled and cron, tag change, alarm and message-handler scripts, a library and secrets."
 ---
 
 Scripts are JavaScript that runs on the gateway with the `nexus.*` API: read and write tags, query history, acknowledge alarms, call web services and more. The full API is on the [Script API](../script-api/) page.

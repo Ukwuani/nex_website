@@ -1,6 +1,7 @@
 ---
 title: UDT templates
 description: Model a pump, motor or tank once - parameters, members, nested templates, inheritance, alarms and scripts - then create and manage as many instances as you need.
+summary: "Model a pump, motor or tank once in Nexus, with parameters, members, nesting, inheritance, alarms and scripts, then create as many as you need."
 ---
 
 A **UDT template** (user-defined type) describes one kind of equipment: a *Pump* with its speed, current, running and fault tags, its alarms and its scripts. Each **instance** (P-101, P-102…) gets its own folder of tags, made from the template. Change the template and every instance follows.

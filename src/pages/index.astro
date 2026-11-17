@@ -108,11 +108,30 @@ const installs = [
     ],
   },
 ];
+
+const homeUrl = new URL(url('/'), Astro.site).href;
+const nexusSchema = [
+  {
+    '@type': 'SoftwareApplication',
+    '@id': `${homeUrl}#nexus`,
+    name: 'Nexus',
+    description:
+      'SCADA, HMI and historian in one gateway, used from a browser: device drivers, tags and templates, operator applications, alarms and on-call, history and reports, scripting and integrations.',
+    url: homeUrl,
+    applicationCategory: 'BusinessApplication',
+    applicationSubCategory: 'SCADA, HMI and industrial IoT',
+    operatingSystem: 'Windows, Linux, Docker',
+    image: new URL(url('/og/default.png'), Astro.site).href,
+    publisher: { '@id': `${homeUrl}#organization` },
+    author: { '@id': `${homeUrl}#organization` },
+  },
+];
 ---
 
 <Base
   title="Nexus by Airogine: SCADA, HMI and historian in one gateway"
-  description="Connect PLCs, record history, raise alarms and run operator screens from one gateway, in any browser."
+  description="Nexus by Airogine is SCADA, HMI and historian in one gateway: connect PLCs, record history, raise alarms and run operator screens in any browser."
+  schema={nexusSchema}
 >
   <!-- 1. Hero -->
   <section class="hero">

@@ -1,6 +1,7 @@
 ---
 title: Licensing
 description: How a gateway is licensed - the 30-day trial, editions and add-ons, activating with a license file or online, licensing edge gateways from the central, and what happens when a subscription ends.
+summary: "How a Nexus gateway is licensed: the 30-day trial, editions and add-ons, license files or online activation, edge licenses and renewals."
 ---
 
 Each gateway is licensed on its own, with **unlimited tags, devices and clients**. A redundant pair shares one license. Licenses are checked on the gateway itself, so plants without internet access work the same way as connected ones.

@@ -35,7 +35,7 @@ const prev = productPages[index - 1];
 const next = productPages[index + 1];
 ---
 
-<Base title={title} description={description}>
+<Base title={title} description={description} breadcrumbs={[{ name: page.name, path: Astro.url.pathname }]}>
   <section class="page-hero">
     <div class="container">
       <p class="eyebrow eyebrow-icon"><Icon name={page.icon} size={18} /> {page.name}</p>

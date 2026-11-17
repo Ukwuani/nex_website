@@ -1,6 +1,7 @@
 ---
 title: AI assistant
 description: Describe a screen and let the assistant draft it from your real tags, set it up with your own API key, know exactly what leaves the plant, and connect other AI clients through the MCP server.
+summary: "Let the Nexus AI assistant draft screens from your real tags, with your own API key, a clear list of what leaves the plant, and an MCP server."
 ---
 
 Engineers describe a screen, for example *"an overview of every pump with its running state and fault"*, and the assistant builds it from the plant's real tags as a **draft view**, or changes the view open in the editor.

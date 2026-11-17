@@ -1,0 +1,129 @@
+---
+// Airogine's terms of use for this website (not the Nexus license agreement).
+// Holds the trademark notice that used to sit in the footer. Needs legal review.
+import Legal from '../layouts/Legal.astro';
+import LegalContact from '../components/LegalContact.astro';
+import { site } from '../config';
+import { url } from '../lib/url';
+
+const state = site.legal.state;
+---
+
+<Legal
+  title="Terms of use"
+  description="The terms for using the Airogine website and the Nexus documentation on it: permitted use, intellectual property, trademarks, disclaimers and governing law."
+  updated={site.legal.termsUpdated}
+>
+  <p class="legal-intro">
+    These terms apply to your use of this website, including the Nexus documentation on it (together, the "site"). The
+    site is run by Airogine ("we", "us"). By using the site, you agree to these terms. If you don't agree, please don't
+    use it.
+  </p>
+
+  <h2 id="nexus-software">The Nexus software</h2>
+  <p>
+    These terms cover the website, not the Nexus software. Downloading, installing or using Nexus is governed by the
+    license agreement that comes with it, or by your agreement with Airogine or the integrator you bought it from. If
+    one of those agreements conflicts with these terms, the agreement applies to the software.
+  </p>
+
+  <h2 id="use">Using the site</h2>
+  <p>You may use the site to learn about Nexus, evaluate it, and install, run and support it. Please don't:</p>
+  <ul>
+    <li>use the site in a way that breaks the law or infringes anyone's rights;</li>
+    <li>try to get into parts of the site or its systems you aren't meant to, or test their security without our written permission;</li>
+    <li>disrupt the site, overload it, or get around measures that protect it;</li>
+    <li>copy the site in bulk or use automated tools to scrape it, except search engines indexing it in the usual way;</li>
+    <li>send us anything misleading through the demo form, or someone else's details without their permission.</li>
+  </ul>
+
+  <h2 id="ip">Our content</h2>
+  <p>
+    The site's text, documentation, screenshots, diagrams, design and code belong to Airogine or the people who license
+    them to us, and are protected by copyright and other laws. You may view the site and print or save pages for your
+    own use, and you may share the documentation within your organization, or with customers you install Nexus for, to
+    help install, run and support it, as long as you keep any notices on it. Anything else, such as republishing the
+    site's content or using it to build a competing product, needs our written permission.
+  </p>
+
+  <h2 id="trademarks">Trademarks</h2>
+  <p>
+    Airogine and Nexus, and their logos, are trademarks of Airogine. Please don't use them in a way that suggests we
+    endorse, sponsor or are affiliated with you or your products without our permission. You may refer to Nexus by
+    name to describe your experience with it, or that your product or service works with it.
+  </p>
+  <p>
+    Modbus, Siemens, S7, EtherNet/IP, OPC UA, Sparkplug, Node-RED and the other product, protocol and company names on
+    this site are trademarks of their respective owners. They are used here only to describe compatibility, and their
+    use doesn't imply endorsement. Claude and Anthropic are trademarks of Anthropic, PBC.
+  </p>
+
+  <h2 id="feedback">Your feedback</h2>
+  <p>
+    If you send us ideas or suggestions about the site or Nexus, we may use them without owing you anything. Information
+    you give us through the demo form is handled as described in our <a href={url('/privacy/')}>privacy policy</a>.
+  </p>
+
+  <h2 id="accuracy">Information on the site</h2>
+  <p>
+    We work to keep the site and documentation accurate and current, but Nexus changes, and the site describes it in
+    general terms. It isn't advice for your particular plant. Before you rely on it to configure, operate or secure a
+    system, check it against your own requirements, and test changes before they reach production. Information about
+    upcoming features is not a promise to deliver them.
+  </p>
+
+  <h2 id="links">Other websites</h2>
+  <p>
+    The site links to websites run by others. We don't control them and aren't responsible for their content, products
+    or privacy practices.
+  </p>
+
+  <h2 id="disclaimer">Disclaimer</h2>
+  <p class="legal-caps">
+    THE SITE IS PROVIDED "AS IS" AND "AS AVAILABLE". TO THE FULLEST EXTENT THE LAW ALLOWS, AIROGINE DISCLAIMS ALL
+    WARRANTIES ABOUT THE SITE, WHETHER EXPRESS OR IMPLIED, INCLUDING WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, TITLE AND NON-INFRINGEMENT. WE DON'T PROMISE THAT THE SITE WILL BE UNINTERRUPTED, ERROR-FREE OR
+    FREE OF HARMFUL COMPONENTS.
+  </p>
+
+  <h2 id="liability">Limitation of liability</h2>
+  <p class="legal-caps">
+    TO THE FULLEST EXTENT THE LAW ALLOWS, AIROGINE WILL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL,
+    CONSEQUENTIAL OR PUNITIVE DAMAGES, OR FOR ANY LOSS OF PROFITS, REVENUE, DATA OR PRODUCTION, ARISING FROM OR RELATED
+    TO YOUR USE OF THE SITE, EVEN IF WE HAVE BEEN TOLD THEY ARE POSSIBLE. OUR TOTAL LIABILITY FOR ANY CLAIM RELATED TO
+    THE SITE IS LIMITED TO ONE HUNDRED US DOLLARS (US$100). SOME JURISDICTIONS DON'T ALLOW SOME OF THESE LIMITS, SO THEY
+    MAY NOT ALL APPLY TO YOU.
+  </p>
+
+  <h2 id="indemnity">Your responsibility</h2>
+  <p>
+    If you use the site in breach of these terms and that leads to a claim against Airogine, you agree to cover the
+    resulting losses and reasonable costs, to the extent the law allows.
+  </p>
+
+  <h2 id="law">Governing law</h2>
+  <p>
+    {
+      state
+        ? `These terms are governed by the laws of the State of ${state} and of the United States, without regard to conflict-of-law rules. Disputes about them will be heard only in the state or federal courts located in ${state}, and you and Airogine agree to those courts' jurisdiction.`
+        : 'These terms are governed by the laws of the United States and of the state in which Airogine is organized, without regard to conflict-of-law rules. Disputes about them will be heard only in the state or federal courts of that state, and you and Airogine agree to those courts’ jurisdiction.'
+    }
+    Nothing in these terms takes away rights you have under the consumer protection laws of the place you live.
+  </p>
+
+  <h2 id="changes">Changes to these terms</h2>
+  <p>
+    We may update these terms. The date at the top shows when they last changed, and the version on this page applies
+    to your use of the site from then on. If a change is significant, we'll make it clear on the site.
+  </p>
+
+  <h2 id="general">General</h2>
+  <p>
+    If any part of these terms can't be enforced, the rest still applies. If we don't enforce a part of them straight
+    away, we can still enforce it later. These terms, with the privacy policy, are the whole agreement between you and
+    Airogine about the site.
+  </p>
+
+  <h2 id="contact">Contact</h2>
+  <p>Questions about these terms go to Airogine at <LegalContact />.</p>
+</Legal>

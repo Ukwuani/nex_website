@@ -7,6 +7,20 @@ export const site = {
   company: 'Airogine',
   product: 'Nexus',
 
+  // The privacy policy and terms of use. OPEN: the contact address for privacy
+  // questions and requests (until it is set, both pages say it is coming), and
+  // the US state Airogine is organized in (named as the governing law once set).
+  legal: {
+    contactEmail: '',
+    state: '',
+    privacyUpdated: '2026-11-17',
+    termsUpdated: '2026-11-17',
+  },
+
+  // Social profiles, listed in the structured data as the company's (sameAs).
+  // e.g. 'https://www.linkedin.com/company/airogine'. Only add real ones.
+  profiles: [] as string[],
+
   // The user documentation (src/content/docs/), and the page the deployment
   // guide links point at.
   docsUrl: '/docs/',

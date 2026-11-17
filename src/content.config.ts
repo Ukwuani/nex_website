@@ -8,8 +8,10 @@ const docs = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/docs' }),
   schema: z.object({
     title: z.string(),
-    /** One sentence: the page's meta description and its line on the docs home. */
+    /** One sentence: the page's lead and its line on the docs home, and its meta description unless it has a summary. */
     description: z.string(),
+    /** The meta description for search results, when the description is longer than 160 characters. */
+    summary: z.string().max(160).optional(),
   }),
 });
 
