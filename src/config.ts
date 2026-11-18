@@ -7,6 +7,11 @@ export const site = {
   company: 'Airogine',
   product: 'Nexus',
 
+  // Brand positioning: the company's line and the product's. Used in the footer,
+  // the Nexus menu, the home page and the structured data; keep them word for word.
+  companyTagline: 'Engineering the future of industrial operations.',
+  productTagline: 'The operating platform for modern manufacturing.',
+
   // The privacy policy and terms of use. OPEN: the contact address for privacy
   // questions and requests (until it is set, both pages say it is coming), and
   // the US state Airogine is organized in (named as the governing law once set).

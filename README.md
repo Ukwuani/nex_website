@@ -139,7 +139,10 @@ the domain, which is in `astro.config.mjs`.
 - **Security overview PDF**: the download button on `/security/` appears once
   `securityOverviewPdf` is set.
 - **Company and product**: `company` (Airogine) is used in the footer copyright line, `product` (Nexus)
-  names the product. The header and footer show the Airogine wordmark (`src/components/Wordmark.astro`,
+  names the product. The brand positioning is `companyTagline` ("Engineering the future of industrial
+  operations.", in the footer and the Organization's structured data) and `productTagline` ("The
+  operating platform for modern manufacturing.", in the home page title and hero, the Nexus menu, the
+  share card and the SoftwareApplication's structured data). The header and footer show the Airogine wordmark (`src/components/Wordmark.astro`,
   type only until there is a logo); the Nexus mark (`Logo.astro`) stays with the product, in the
   Nexus menu and the favicon.
 - **Privacy policy and terms of use**: written from what the site actually does (no cookies,

@@ -732,6 +732,12 @@ kbd,
   font-size: 0.9375rem;
 }
 
+.footer-brand .footer-tagline {
+  margin-bottom: -8px;
+  color: var(--text);
+  font-weight: 600;
+}
+
 .site-footer h2 {
   margin-bottom: 12px;
   font-size: 0.8125rem;

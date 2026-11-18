@@ -115,8 +115,9 @@ const nexusSchema = [
     '@type': 'SoftwareApplication',
     '@id': `${homeUrl}#nexus`,
     name: 'Nexus',
+    slogan: site.productTagline,
     description:
-      'SCADA, HMI and historian in one gateway, used from a browser: device drivers, tags and templates, operator applications, alarms and on-call, history and reports, scripting and integrations.',
+      'The operating platform for modern manufacturing. SCADA, HMI and historian in one gateway, used from a browser: device drivers, tags and templates, operator applications, alarms and on-call, history and reports, scripting and integrations.',
     url: homeUrl,
     applicationCategory: 'BusinessApplication',
     applicationSubCategory: 'SCADA, HMI and industrial IoT',
@@ -129,19 +130,20 @@ const nexusSchema = [
 ---
 
 <Base
-  title="Nexus by Airogine: SCADA, HMI and historian in one gateway"
-  description="Nexus by Airogine is SCADA, HMI and historian in one gateway: connect PLCs, record history, raise alarms and run operator screens in any browser."
+  title="Nexus: The operating platform for modern manufacturing"
+  description="Nexus by Airogine, the operating platform for modern manufacturing: SCADA, HMI and historian in one gateway, run from any browser."
   schema={nexusSchema}
 >
   <!-- 1. Hero -->
   <section class="hero">
     <div class="container">
       <div class="hero-copy">
-        <p class="eyebrow"><span class="dot"></span> Nexus: SCADA, HMI and IIoT in one gateway</p>
-        <h1>Your whole plant, in <span class="grad">one browser tab.</span></h1>
+        <p class="eyebrow"><span class="dot"></span> Nexus by Airogine</p>
+        <h1>The operating platform for <span class="grad">modern manufacturing.</span></h1>
         <p class="lead">
-          Nexus connects to your PLCs, records every value, raises alarms and runs operator screens on any device.
-          Model a pump once, and every pump gets its tags, alarms and history.
+          Your whole plant in one browser tab: SCADA, HMI, historian and IIoT in one gateway. Nexus connects to your
+          PLCs, records every value, raises alarms and runs operator screens on any device. Model a pump once, and every
+          pump gets its tags, alarms and history.
         </p>
         <div class="actions">
           <a class="btn btn-primary btn-lg" href={url('/demo/')}>Book a demo</a>
