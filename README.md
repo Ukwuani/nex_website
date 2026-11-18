@@ -4,7 +4,7 @@ The website of Airogine, the company that makes Nexus, its only product (as Indu
 makes Ignition). The site carries Airogine's name in the header, footer, legal lines and Open Graph
 site name; every product page and the documentation are about Nexus. Built from the product website brief (27 Oct 2026). It is a static
 [Astro](https://astro.build) site: plain HTML and CSS, a few lines of JavaScript for the menus and
-the demo form, and no tracking.
+the demo form, and cookieless visit statistics from Vercel Web Analytics.
 
 ## Run it
 
@@ -145,8 +145,8 @@ the domain, which is in `astro.config.mjs`.
   share card and the SoftwareApplication's structured data). The header and footer show the Airogine wordmark (`src/components/Wordmark.astro`,
   type only until there is a logo); the Nexus mark (`Logo.astro`) stays with the product, in the
   Nexus menu and the favicon.
-- **Privacy policy and terms of use**: written from what the site actually does (no cookies,
-  analytics or third-party requests; the demo form; Vercel's logs) and what Nexus sends when it
+- **Privacy policy and terms of use**: written from what the site actually does (no cookies or
+  third-party requests; cookieless Vercel Web Analytics; the demo form; Vercel's logs) and what Nexus sends when it
   licenses online. If the site starts using a form service, analytics or anything else that
   handles personal information, update `/privacy/` in the same change. Both need legal review.
   Still open in `site.legal`: `contactEmail` (until it's set, both pages say the address is

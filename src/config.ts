@@ -18,7 +18,7 @@ export const site = {
   legal: {
     contactEmail: '',
     state: '',
-    privacyUpdated: '2026-11-17',
+    privacyUpdated: '2026-11-18',
     termsUpdated: '2026-11-17',
   },
 
