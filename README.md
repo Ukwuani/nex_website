@@ -130,9 +130,12 @@ from the app's `Logo.tsx` and `favicon.svg`, and re-run `scripts/make-og.sh`.
 These map to the open questions in the brief. Everything configurable is in `src/config.ts`, except
 the domain, which is in `astro.config.mjs`.
 
-- **Demo form endpoint**: `demoFormAction` is empty. Until it is set, the form tells the visitor
-  that nothing was sent rather than pretending to submit. It posts `name`, `email`, `company`,
-  `role`, `protocols` and `devices`.
+- **Demo requests**: the form posts to the Vercel Function in `api/demo.ts`, which emails each
+  request through [Resend](https://resend.com), with the visitor as reply-to. It needs three
+  environment variables in the Vercel project: `RESEND_API_KEY`; `DEMO_FROM_EMAIL`, a sender on a
+  domain verified in Resend (for example `Airogine website <demo@airogine.com>`); and
+  `DEMO_TO_EMAIL`, where requests go (several addresses separated by commas). Until all three are set, the form says the request couldn't
+  be sent. `npm run dev` doesn't serve the function; use `vercel dev` to try it locally.
 - **Docs**: `docsUrl` and `deploymentGuideUrl` point at `/docs/`. The brief asks for every security
   claim to link to its section of the docs; the matching pages are `/docs/security/`,
   `/docs/users-and-roles/`, `/docs/sign-in-providers/` and `/docs/redundancy/`.

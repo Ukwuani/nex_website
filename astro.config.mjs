@@ -14,6 +14,7 @@ export default defineConfig({
     shikiConfig: { themes: { light: 'github-light', dark: 'github-dark' } },
   },
   integrations: [
-    sitemap(),
+    // The demo thank-you page is noindex, so it stays out of the sitemap too.
+    sitemap({ filter: (page) => !page.endsWith('/demo/thanks/') }),
   ],
 });

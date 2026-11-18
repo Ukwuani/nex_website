@@ -31,10 +31,10 @@ export const site = {
   docsUrl: '/docs/',
   deploymentGuideUrl: '/docs/installation/',
 
-  // OPEN: the endpoint that receives demo requests (a CRM or form service).
-  // While it is empty, the form tells the visitor it is not connected yet
-  // instead of pretending to send.
-  demoFormAction: '',
+  // Where the demo form posts: the Vercel Function in api/demo.ts, which emails
+  // each request. If this is emptied, the form tells the visitor it is not
+  // connected instead of pretending to send.
+  demoFormAction: '/api/demo',
 
   // To produce: a PDF made from the Security page. The download button on the
   // Security page only appears once this is set, e.g. '/nexus-security-overview.pdf'.

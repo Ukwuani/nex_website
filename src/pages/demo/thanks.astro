@@ -1,0 +1,20 @@
+---
+// Where the demo form lands when it is sent without JavaScript (api/demo.ts
+// redirects here). With JavaScript, the form confirms in place instead.
+import Base from '../../layouts/Base.astro';
+import { url } from '../../lib/url';
+---
+
+<Base title="Demo request sent: Nexus by Airogine" description="Thanks for booking a Nexus demo. Your request is with Airogine, and we'll reply by email to arrange a time." noindex>
+  <section class="page-hero">
+    <div class="container prose">
+      <p class="eyebrow">Book a demo</p>
+      <h1>Thanks. Your request is with us.</h1>
+      <p class="lead">We'll reply to the email address you gave to arrange a time.</p>
+      <div class="actions">
+        <a class="btn btn-primary" href={url('/')}>Back to the home page</a>
+        <a class="btn btn-secondary" href={url('/docs/')}>Read the docs</a>
+      </div>
+    </div>
+  </section>
+</Base>

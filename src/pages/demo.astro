@@ -48,7 +48,7 @@ const agenda = [
         </ul>
       </div>
 
-      <form class="form" method="post" action={site.demoFormAction || undefined} data-demo-form>
+      <form class="form" method="post" action={site.demoFormAction ? url(site.demoFormAction) : undefined} data-demo-form>
         <div class="form-row">
           <div class="field">
             <label for="name">Name</label>
@@ -92,7 +92,11 @@ const agenda = [
             placeholder="For example: 12 pumps on Modbus TCP, two S7 PLCs, an OPC UA server on the dosing skid"
           ></textarea>
         </div>
-        <button class="btn btn-primary btn-lg" type="submit">Book a demo</button>
+        <div class="sr-only" aria-hidden="true">
+          <label for="website">Leave this empty</label>
+          <input id="website" name="website" tabindex="-1" autocomplete="off" />
+        </div>
+        <button class="btn btn-primary btn-lg" type="submit" data-form-submit>Book a demo</button>
         <p class="form-status" role="status" hidden data-form-status></p>
         <p class="small-print">
           We use these details only to arrange your demo. See the <a href={url('/privacy/')}>privacy policy</a>.
@@ -103,14 +107,40 @@ const agenda = [
 </Base>
 
 <script>
-  // Until a form endpoint is configured (site.demoFormAction in src/config.ts),
-  // say so plainly rather than appear to send the request.
+  // Sends the request in the background and says plainly whether it went.
+  // Without an endpoint (site.demoFormAction in src/config.ts), says so rather
+  // than appear to send. Without JavaScript, the form posts normally and the
+  // function redirects to the thank-you page.
   const form = document.querySelector<HTMLFormElement>('[data-demo-form]')!;
   const status = form.querySelector<HTMLElement>('[data-form-status]')!;
-  form.addEventListener('submit', (e) => {
-    if (form.getAttribute('action')) return;
-    e.preventDefault();
+  const submit = form.querySelector<HTMLButtonElement>('[data-form-submit]')!;
+  const say = (text: string) => {
     status.hidden = false;
-    status.textContent = 'Demo requests are not connected yet, so nothing was sent.';
+    status.textContent = text;
+  };
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const action = form.getAttribute('action');
+    if (!action) return say('Demo requests are not connected yet, so nothing was sent.');
+
+    submit.disabled = true;
+    say('Sending…');
+    let failure = 'Your request could not be sent. Please try again in a few minutes.';
+    try {
+      const res = await fetch(action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } });
+      if (!res.ok) {
+        const body = await res.json().catch(() => ({}));
+        if (body.message) failure = body.message;
+        throw new Error(failure);
+      }
+      const email = new FormData(form).get('email');
+      form.reset();
+      say(`Thanks. Your request is with us, and we'll reply to ${email} to arrange a time.`);
+    } catch {
+      say(failure);
+    } finally {
+      submit.disabled = false;
+    }
   });
 </script>
