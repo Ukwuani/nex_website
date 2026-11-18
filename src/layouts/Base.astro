@@ -7,7 +7,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { url } from '../lib/url';
 import { site } from '../config';
-import Analytics from '@vercel/analytics/astro'
+import Analytics from '@vercel/analytics/astro';
 
 interface Crumb {
   name: string;
@@ -114,6 +114,7 @@ const jsonLd = JSON.stringify({ '@context': 'https://schema.org', '@graph': grap
     <meta name="twitter:image:alt" content={ogImageAlt} />
     <meta name="robots" content={noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large, max-snippet:-1'} />
     {!noindex && <script type="application/ld+json" set:html={jsonLd} />}
+    <Analytics />
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
