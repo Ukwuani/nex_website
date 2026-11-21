@@ -9,6 +9,7 @@ import { url } from '../lib/url';
 const path = Astro.url.pathname;
 const current = (href: string) => (path === url(href) ? 'page' : undefined);
 const inProduct = [...productPages, ...audiencePages].some((p) => url(p.href) === path);
+const inResources = path.startsWith(url('/resources/'));
 ---
 
 <header class="site-header" data-header>
@@ -69,6 +70,7 @@ const inProduct = [...productPages, ...audiencePages].some((p) => url(p.href) ==
         </div>
       </div>
       <a class="nav-link" href={url('/how-it-works/')} aria-current={current('/how-it-works/')}>How it works</a>
+      <a class:list={['nav-link', { active: inResources }]} href={url('/resources/')} aria-current={current('/resources/')}>Resources</a>
       <a class="nav-link" href={url('/security/')} aria-current={current('/security/')}>Security</a>
       <a class="nav-link" href={url(site.docsUrl)} aria-current={current(site.docsUrl)}>Docs</a>
     </nav>
@@ -119,6 +121,7 @@ const inProduct = [...productPages, ...audiencePages].some((p) => url(p.href) ==
       </ul>
       <ul class="mobile-links">
         <li><a href={url('/how-it-works/')}>How it works</a></li>
+        <li><a href={url('/resources/')}>Resources</a></li>
         <li><a href={url('/security/')}>Security</a></li>
         <li><a href={url(site.docsUrl)}>Docs</a></li>
       </ul>

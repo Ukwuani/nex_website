@@ -1,0 +1,542 @@
+---
+import Article from '../../layouts/Article.astro';
+import Shot from '../../components/Shot.astro';
+import Icon from '../../components/Icon.astro';
+import { url } from '../../lib/url';
+
+const line = [
+  { id: 'T-100', name: 'Syrup tank' },
+  { id: 'M-100', name: 'Blender' },
+  { id: 'F-200', name: 'Filler' },
+  { id: 'C-300', name: 'Capper' },
+  { id: 'L-400', name: 'Labeller' },
+  { id: 'V-500', name: 'Inspector' },
+  { id: 'P-600', name: 'Case packer' },
+  { id: 'R-700', name: 'Palletizer' },
+];
+
+const pillars = [
+  { icon: 'boxes', title: 'A model', body: 'What the machines are, how they connect and what each one measures.' },
+  { icon: 'activity', title: 'A pulse', body: "The model's numbers are the machine's numbers, right now." },
+  { icon: 'history', title: 'A memory', body: 'History to compare against, targets to judge by, alarms that speak up.' },
+];
+
+const oee = [
+  { label: 'Availability', value: '94.9%', tone: 'a' },
+  { label: 'Performance', value: '90.8%', tone: 'p' },
+  { label: 'Quality', value: '99.28%', tone: 'q' },
+];
+
+const downtime = [
+  { reason: 'Changeover', minutes: 25 },
+  { reason: 'Labeller jams', minutes: 21 },
+  { reason: 'Capper torque', minutes: 12 },
+  { reason: 'Preforms short', minutes: 9 },
+  { reason: 'Other', minutes: 6 },
+];
+const downtimeTotal = downtime.reduce((sum, d) => sum + d.minutes, 0);
+---
+
+<Article
+  title="Digital twins for production lines: Nexus"
+  description="What a digital twin really is on the factory floor, and how to build one in Nexus: a live PET bottling line, from the first tag to the finished screen."
+  eyebrow="Guide"
+  headline="Your production line, alive in a browser tab"
+  standfirst="A digital twin isn't a 3D rendering for the boardroom. It's a living copy of your line, wired to the real thing, that tells you what's happening, what just happened and what to look at next. Here's what that looks like on a bottling line, and how to build one in Nexus."
+  ogImage="/og/digital-twin.png"
+  ogImageAlt="The Line 1 PET bottling twin in Nexus: OEE tiles, a drawing of the line with live readouts, alarms and shift charts"
+  ctaHeadline="See your line as a twin."
+  ctaBody="Bring a line and its tag list, and we'll show you what its twin looks like in Nexus."
+>
+  <Shot
+    slot="visual"
+    id="line-twin"
+    loop
+    controls
+    eager
+    caption="Line 1, a PET bottling line, running live in Nexus. Click any machine and the panel on the right follows it."
+  />
+
+  <h2>Meet Line 1</h2>
+  <p>
+    Line 1 bottles soft drinks in Hall B. Syrup leaves tank T-100 and meets water in blender M-100. From there, every bottle runs the gauntlet:
+    filled, capped, labelled, checked by a camera, packed into cases and stacked onto pallets by a robot arm.
+  </p>
+
+  <figure class="line-strip" aria-label="Line 1, machine by machine">
+    <ol>
+      {
+        line.map((m) => (
+          <li>
+            <span class="tag-id">{m.id}</span>
+            <span>{m.name}</span>
+          </li>
+        ))
+      }
+    </ol>
+  </figure>
+
+  <p>
+    In the twin, all of that fits on one screen. Each machine carries a small readout with the number that matters most for it: the tank's
+    level, the blender's pressure, the fill volume (499.6 mL, if you're wondering), the capper's torque, the inspector's rejects, cases
+    packed and pallets built. A green tag says Running. When a machine is starved, blocked or faulted, its colour tells you before you've read a
+    word.
+  </p>
+  <p>
+    Across the top is the line's scorecard: OEE against target, availability, performance, quality, good bottles against the shift plan, and
+    energy per thousand bottles. Under the drawing is the story of the shift: output by hour against plan, line speed against setpoint, and where
+    the downtime went.
+  </p>
+  <p>
+    Then there's the part everyone enjoys. <strong>Click the capper and the panel on the right becomes the capper</strong>: its rate, drive
+    temperature, availability, and the last fifteen minutes of drive temperature. Click the palletizer and the panel follows. Nobody digs through
+    a menu or remembers a tag name. You point at the machine you're curious about.
+  </p>
+
+  <h2>So what is a digital twin, really?</h2>
+  <p>Take away the buzzwords and a digital twin is three things working together:</p>
+
+  <div class="pillars">
+    {
+      pillars.map((p) => (
+        <div class="pillar">
+          <span class="card-icon">
+            <Icon name={p.icon} size={20} />
+          </span>
+          <h3>{p.title}</h3>
+          <p>{p.body}</p>
+        </div>
+      ))
+    }
+  </div>
+
+  <p>
+    A drawing without data is a poster. Data without a model is a spreadsheet. A twin is where the two meet, and that's what makes it useful:
+    you can ask it questions. Are we on plan? Which machine is costing us the most time? Was the capper running hot before it started
+    tripping?
+  </p>
+  <p class="pull">A twin doesn't need to look real. It needs every number on it to be real.</p>
+  <p>
+    Notice what isn't on that list: photorealism. The Line 1 twin is a clean, simple drawing, and it works because every number on it comes
+    straight from the line controller.
+  </p>
+
+  <h2>Why so many twins never leave the slide deck</h2>
+  <p>
+    Most twin projects don't fail because of the drawing. They fail because of the plumbing. The data lives in a PLC, a historian, a
+    spreadsheet of shift targets and a maintenance log. The twin is built by a separate team in a separate tool, opened in a special client on a
+    few PCs, and quietly goes stale the first time the line changes.
+  </p>
+  <p>
+    The fix is to build the twin where the data already lives: in the platform that talks to your PLCs, records your history and raises your
+    alarms. Then the twin isn't a project. It's just another screen.
+  </p>
+
+  <h2>Building Line 1 in Nexus</h2>
+  <p>Here's how a line like this comes together in Nexus, from the first tag to the finished screen.</p>
+
+  <ol class="build">
+    <li>
+      <h3>Connect the line</h3>
+      <p>
+        Nexus speaks the protocols already on your floor: <a href={url('/connectivity/')}>Modbus, S7, EtherNet/IP, OPC UA and MQTT</a>. Point it
+        at the line controller and every value you care about becomes a tag.
+      </p>
+      <p>
+        No PLC yet? Start with the built-in simulator and build the whole twin before the line is commissioned. When the hardware arrives,
+        switch the tags to the real device and everything you built keeps working.
+      </p>
+    </li>
+    <li>
+      <h3>Model each machine once</h3>
+      <p>
+        A filler, a capper and a labeller are all, at heart, a machine with a state, a rate, a drive and some counters. Describe that once as a <a
+          href={url('/templates/')}>template</a
+        >, with its tags, alarms and parameters, and create an instance for each machine on the line.
+      </p>
+      <p>
+        Need a capper with an extra torque reading? Make a Capper template that extends Machine and adds just that. Improve the template and every
+        machine on the line gets the improvement.
+      </p>
+    </li>
+    <li>
+      <h3>Turn signals into answers</h3>
+      <p>
+        Raw signals become the numbers on the scorecard through expression tags. Availability is run time over planned time. Performance is actual
+        speed over ideal speed. Quality is good bottles over all bottles. Multiply the three and you have OEE:
+      </p>
+      <figure class="equation" aria-label="Availability 94.9% times performance 90.8% times quality 99.28% is about 85.6% OEE">
+        {
+          oee.map((term, i) => (
+            <>
+              {i > 0 && (
+                <span class="op" aria-hidden="true">
+                  ×
+                </span>
+              )}
+              <span class:list={['term', term.tone]}>
+                <small>{term.label}</small>
+                <strong>{term.value}</strong>
+              </span>
+            </>
+          ))
+        }
+        <span class="op" aria-hidden="true">≈</span>
+        <span class="term result">
+          <small>OEE</small>
+          <strong>85.6%</strong>
+        </span>
+      </figure>
+      <p>
+        Energy per thousand bottles works the same way: the energy meter divided by the good-bottle count. Every derived number is a tag like any
+        other, so you can trend it, alarm on it and report on it.
+      </p>
+    </li>
+    <li>
+      <h3>Draw the twin</h3>
+      <p>
+        Nexus views are built in the browser. Drop in a drawing of your line as the backdrop, then place symbols and readouts on top. Tanks,
+        conveyors, fillers, cappers and case packers are already in the symbol library, ready to show running, stopped and fault. KPI tiles hold a
+        value, a target and a progress bar. Bind each one to its tag and it comes alive.
+      </p>
+      <p>
+        The click-a-machine trick is a view property. Clicking a machine sets which one is selected, and the panel on the right reads that
+        machine's tags through the property. One panel serves every machine.
+      </p>
+    </li>
+    <li>
+      <h3>Give it a memory</h3>
+      <p>
+        The <a href={url('/history/')}>historian</a> records every tag value, so the twin can look back as easily as it looks at now. The drive
+        temperature trend, line speed against setpoint, output by hour with OEE on a second axis, and the downtime breakdown are all drawn from
+        that history. The same numbers go into shift reports that send themselves when the shift ends.
+      </p>
+    </li>
+    <li>
+      <h3>Teach it to speak up</h3>
+      <p>
+        A twin that only shows things still needs someone watching it. <a href={url('/alarms/')}>Alarm rules</a> do the watching: a capper torque
+        fault, a labeller temperature drifting, a process value out of its band. Each alarm has a priority and can be acknowledged or shelved right
+        from the twin. If nobody responds, it escalates to whoever is on call.
+      </p>
+    </li>
+    <li>
+      <h3>Let the assistant sketch the first draft</h3>
+      <p>
+        Describe the screen you want and the <a href={url('/ai-assistant/')}>AI assistant</a> builds a draft from your real tags. It's a quick
+        way to get a first layout onto the canvas, and nothing reaches operators until you publish.
+      </p>
+    </li>
+  </ol>
+
+  <h2>What changes when the line has a twin</h2>
+  <p>
+    Look at the downtime panel in the video. This shift, the line has lost {downtimeTotal} minutes, and the twin already knows where they
+    went:
+  </p>
+
+  <figure class="pareto">
+    <ul aria-label={`Downtime this shift, ${downtimeTotal} minutes in total`}>
+      {
+        downtime.map((d) => (
+          <li>
+            <span class="reason">{d.reason}</span>
+            <span class="bar" style={`--w: ${(d.minutes / downtime[0].minutes) * 100}%`} />
+            <span class="mins">{d.minutes} min</span>
+          </li>
+        ))
+      }
+    </ul>
+    <figcaption>Downtime this shift on Line 1, largest first</figcaption>
+  </figure>
+
+  <p>
+    Nobody had to put that report together on Monday. It's on screen while the shift is still running, so the conversation about labeller jams
+    can happen while the jams are still happening.
+  </p>
+  <p>A few things teams notice once a line has a twin:</p>
+  <ul>
+    <li>
+      <strong>Dips explain themselves.</strong> The 08:00 bar in the output chart sits below plan, and OEE dips with it. Open the line speed history
+      for that hour and the stops behind it are right there.
+    </li>
+    <li>
+      <strong>Everyone sees the same line.</strong> The operator at the filler, the supervisor on a tablet and the maintenance lead at home see the
+      same live numbers, in a browser. There's nothing to install.
+    </li>
+    <li>
+      <strong>Targets stop being abstract.</strong> Every tile shows its target, so "are we having a good shift?" is answered at a glance.
+    </li>
+    <li>
+      <strong>New starters learn faster.</strong> The twin is a map of the line that explains itself. Click around and you learn what each machine
+      does and what normal looks like.
+    </li>
+    <li>
+      <strong>Energy becomes a production number.</strong> Kilowatt-hours per thousand bottles, right next to OEE, turns energy into something the
+      shift can act on.
+    </li>
+    <li>
+      <strong>Changes are cheap.</strong> A new machine is a new template instance and a new symbol on the drawing. The twin keeps up with the line,
+      not the other way round.
+    </li>
+  </ul>
+
+  <h2>Start with one line and one question</h2>
+  <p>
+    The best twins start small. Pick one line. Pick the question you most want answered ("where does our downtime go?" is a great first one).
+    Connect the tags that answer it, draw the line, add a scorecard, and put it in front of the people who run the line. Then let them tell you what
+    to add next.
+  </p>
+  <p>Line 1 started exactly that way. Now it's the screen everyone keeps open.</p>
+
+  <p class="next">
+    <a class="text-link" href={url('/how-it-works/')}>See how Nexus fits together <Icon name="arrow-right" size={16} /></a>
+  </p>
+</Article>
+
+<style>
+  /* The line, machine by machine */
+  .line-strip ol {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .line-strip li {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+    color: var(--text);
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.2;
+  }
+  .line-strip li + li {
+    margin-top: 0;
+  }
+  .line-strip li > span:last-child {
+    padding: 7px 12px 7px 0;
+  }
+  .line-strip li:not(:last-child)::after {
+    content: '';
+    width: 18px;
+    height: 2px;
+    margin-right: 10px;
+    border-radius: 2px;
+    background: var(--grad);
+  }
+  .line-strip .tag-id {
+    padding: 4px 8px;
+    border-radius: 6px;
+    background: var(--tint);
+    color: var(--primary);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+  }
+
+  /* Model, pulse, memory */
+  .pillars {
+    display: grid;
+    gap: 12px;
+    margin-top: 24px;
+  }
+  @media (min-width: 640px) {
+    .pillars {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  .pillar {
+    padding: 20px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface);
+  }
+  .pillar .card-icon {
+    margin-bottom: 14px;
+  }
+  .pillar h3 {
+    margin: 0;
+    font-size: 1.0625rem;
+  }
+  .pillar p {
+    margin-top: 6px;
+    font-size: 0.9375rem;
+    line-height: 1.55;
+  }
+
+  /* The build, step by step */
+  .build {
+    margin-top: 28px;
+    padding: 0;
+    list-style: none;
+    counter-reset: step;
+  }
+  .build > li {
+    position: relative;
+    padding: 0 0 8px 56px;
+    counter-increment: step;
+  }
+  .build > li + li {
+    margin-top: 28px;
+  }
+  .build > li::before {
+    content: counter(step);
+    position: absolute;
+    left: 0;
+    top: -2px;
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--grad);
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.9375rem;
+  }
+  .build > li:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    left: 17px;
+    top: 42px;
+    bottom: -22px;
+    width: 2px;
+    background: var(--border);
+  }
+  .build h3 {
+    margin-top: 2px;
+    color: var(--text);
+  }
+
+  /* OEE, multiplied out */
+  .equation {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    margin: 24px 0 !important;
+    padding: 18px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface);
+  }
+  .equation .term {
+    display: grid;
+    gap: 2px;
+    padding: 10px 14px;
+    border-radius: var(--radius-sm);
+    background: var(--bg);
+  }
+  .equation small {
+    color: var(--text-2);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .equation strong {
+    font-size: 1.375rem;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.01em;
+  }
+  .equation .a strong {
+    color: #059669;
+  }
+  .equation .p strong {
+    color: #7c3aed;
+  }
+  .equation .q strong {
+    color: #b45309;
+  }
+  .equation .result {
+    background: var(--tint-strong);
+  }
+  .equation .result strong {
+    color: var(--primary);
+  }
+  .equation .op {
+    color: var(--text-2);
+    font-size: 1.25rem;
+  }
+  @media (max-width: 560px) {
+    .equation {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding: 12px;
+    }
+    .equation .op {
+      display: none;
+    }
+    .equation strong {
+      font-size: 1.25rem;
+    }
+  }
+  @media (prefers-color-scheme: dark) {
+    .equation .a strong {
+      color: #34d399;
+    }
+    .equation .p strong {
+      color: #a78bfa;
+    }
+    .equation .q strong {
+      color: #fbbf24;
+    }
+  }
+
+  /* Downtime, largest first */
+  .pareto ul {
+    display: grid;
+    gap: 10px;
+    margin: 0;
+    padding: 20px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface);
+    list-style: none;
+  }
+  .pareto li {
+    display: grid;
+    grid-template-columns: 8.5rem 1fr 3.75rem;
+    align-items: center;
+    gap: 12px;
+    margin: 0 !important;
+    font-size: 0.9375rem;
+  }
+  .pareto .reason {
+    color: var(--text);
+  }
+  .pareto .bar {
+    height: 10px;
+    border-radius: 5px;
+    background: var(--surface-2);
+    overflow: hidden;
+    position: relative;
+  }
+  .pareto .bar::before {
+    content: '';
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: var(--w);
+    border-radius: inherit;
+    background: var(--grad);
+  }
+  .pareto .mins {
+    color: var(--text-2);
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+  }
+  @media (max-width: 480px) {
+    .pareto li {
+      grid-template-columns: 6.5rem 1fr 3.25rem;
+      gap: 8px;
+      font-size: 0.875rem;
+    }
+  }
+
+  .next {
+    margin-top: 40px !important;
+  }
+</style>

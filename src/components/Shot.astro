@@ -10,11 +10,13 @@ interface Props {
   caption?: string;
   /** Loops play on their own; longer recordings get controls. */
   loop?: boolean;
+  /** Shows the player controls; on by default for recordings that don't loop. */
+  controls?: boolean;
   eager?: boolean;
   class?: string;
 }
 
-const { id, caption, loop = false, eager = false, class: className } = Astro.props;
+const { id, caption, loop = false, controls, eager = false, class: className } = Astro.props;
 const { visual, image, video, ready } = resolveVisual(id);
 ---
 
@@ -47,7 +49,7 @@ const { visual, image, video, ready } = resolveVisual(id);
             preload="metadata"
             autoplay={loop}
             loop={loop}
-            controls={!loop}
+            controls={controls ?? !loop}
           >
             {video.webm && <source src={video.webm} type="video/webm" />}
             {video.mp4 && <source src={video.mp4} type="video/mp4" />}

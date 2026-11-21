@@ -5,8 +5,8 @@
 //   Images: <id>.png, plus <id>-dark.png for a dark-mode version
 //   Video:  <id>.webm and/or <id>.mp4, optional <id>.vtt captions and <id>-poster.png
 //
-// All captures come from a real gateway running the Riverside demo plant,
-// never a mock-up.
+// All captures come from a real gateway running a demo plant (Riverside water,
+// or the Line 1 bottling line), never a mock-up.
 
 export interface Visual {
   title: string;
@@ -122,6 +122,14 @@ export const visuals = {
     alt: 'System health page showing both gateways of a redundant pair with their roles and heartbeats',
     kind: 'image',
     aspect: '16 / 9',
+  },
+  'line-twin': {
+    title: 'Line 1 digital twin',
+    shows: 'A PET bottling line as a live twin: scorecard, clickable machines, alarms and shift history',
+    format: 'MP4/WebM, no audio',
+    alt: 'A live digital twin of a PET bottling line in Nexus: OEE and production tiles across the top, a drawing of the line with a readout on each machine, a panel following the selected machine, active alarms, output by hour, line speed and downtime this shift',
+    kind: 'video',
+    aspect: '1920 / 936',
   },
 } satisfies Record<string, Visual>;
 

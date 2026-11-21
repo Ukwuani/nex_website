@@ -1,0 +1,113 @@
+---
+import Base from '../../layouts/Base.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import Icon from '../../components/Icon.astro';
+import { resources, formatDate } from '../../data/resources';
+import { url } from '../../lib/url';
+
+const [featured, ...rest] = resources;
+---
+
+<Base
+  title="Resources: guides to Nexus by Airogine"
+  description="Guides and articles on running a modern plant with Nexus: digital twins, screens, alarms, history and the habits that make a line easier to run."
+  breadcrumbs={[{ name: 'Resources', path: Astro.url.pathname }]}
+>
+  <section class="page-hero">
+    <div class="container">
+      <p class="eyebrow">Resources</p>
+      <h1>Ideas for running a better plant</h1>
+      <p class="lead">Practical guides from the plant floor: what to build, why it helps, and how to build it in Nexus.</p>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container">
+      <a class="card featured" href={url(featured.href)}>
+        <div class="featured-media">
+          <img src={url(featured.image)} alt={featured.imageAlt} width="960" height="540" loading="eager" decoding="async" />
+        </div>
+        <div class="featured-copy">
+          <p class="card-kicker">{featured.kind} · {featured.minutes} min read</p>
+          <h2>{featured.title}</h2>
+          <p>{featured.blurb}</p>
+          <p class="featured-date"><time datetime={featured.published}>{formatDate(featured.published)}</time></p>
+          <span class="text-link">Read the {featured.kind.toLowerCase()} <Icon name="arrow-right" size={16} /></span>
+        </div>
+      </a>
+
+      {
+        rest.length > 0 && (
+          <div class="grid-3 more">
+            {rest.map((r) => (
+              <a class="card" href={url(r.href)}>
+                <p class="card-kicker">
+                  {r.kind} · {r.minutes} min read
+                </p>
+                <h3>{r.title}</h3>
+                <p>{r.blurb}</p>
+                <span class="text-link">
+                  Read <Icon name="arrow-right" size={16} />
+                </span>
+              </a>
+            ))}
+          </div>
+        )
+      }
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>
+
+<style>
+  .featured {
+    display: grid;
+    gap: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+  @media (min-width: 880px) {
+    .featured {
+      grid-template-columns: 1.25fr 1fr;
+      align-items: center;
+    }
+  }
+  .featured-media {
+    background: #0b0e15;
+  }
+  .featured-media img {
+    display: block;
+    width: 100%;
+    height: auto;
+    transition: transform 0.4s ease;
+  }
+  .featured:hover .featured-media img {
+    transform: scale(1.02);
+  }
+  .featured-copy {
+    display: flex;
+    flex-direction: column;
+    padding: clamp(24px, 3vw, 40px);
+  }
+  .featured-copy h2 {
+    margin-bottom: 12px;
+    font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+  }
+  .featured-copy p {
+    color: var(--text-2);
+  }
+  .featured-date {
+    margin-top: 14px;
+    font-size: 0.875rem;
+  }
+  .featured .text-link {
+    margin-top: 0;
+    padding-top: 20px;
+  }
+  .more {
+    margin-top: 24px;
+  }
+</style>
