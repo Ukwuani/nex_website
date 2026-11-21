@@ -424,8 +424,12 @@ kbd,
   border-bottom-color: var(--border);
 }
 
+/* Solid while the menu is open. The blur goes too: a backdrop filter makes the
+   header the containing block of the fixed menu, squashing it to the header's height. */
 .site-header[data-menu-open] {
   background: var(--bg);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
 }
 
 .header-inner {
@@ -653,8 +657,11 @@ kbd,
 
 .mobile-menu {
   position: fixed;
-  inset: var(--header-h) 0 0;
+  inset: var(--header-h) 0 auto;
+  height: calc(100vh - var(--header-h));
+  height: calc(100dvh - var(--header-h));
   overflow-y: auto;
+  overscroll-behavior: contain;
   padding-block: 16px 32px;
   background: var(--bg);
 }
@@ -684,8 +691,22 @@ kbd,
   color: var(--primary);
 }
 
+.mobile-heading:not(:first-child) {
+  margin-top: 28px;
+}
+
+.mobile-product a[aria-current='page'],
+.mobile-links a[aria-current='page'] {
+  color: var(--primary);
+}
+
 .mobile-links {
-  margin: 16px 0 24px;
+  margin: 0 0 28px;
+}
+
+/* The menu ends with its own Book a demo, so the header's steps aside while it's open. */
+[data-menu-open] .header-actions .btn {
+  display: none;
 }
 
 @media (max-width: 380px) {

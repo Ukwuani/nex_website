@@ -119,11 +119,12 @@ const inResources = path.startsWith(url('/resources/'));
           ))
         }
       </ul>
+      <p class="mobile-heading">Learn</p>
       <ul class="mobile-links">
-        <li><a href={url('/how-it-works/')}>How it works</a></li>
-        <li><a href={url('/resources/')}>Resources</a></li>
-        <li><a href={url('/security/')}>Security</a></li>
-        <li><a href={url(site.docsUrl)}>Docs</a></li>
+        <li><a href={url('/how-it-works/')} aria-current={current('/how-it-works/')}>How it works</a></li>
+        <li><a href={url('/resources/')} aria-current={inResources ? 'page' : undefined}>Resources</a></li>
+        <li><a href={url('/security/')} aria-current={current('/security/')}>Security</a></li>
+        <li><a href={url(site.docsUrl)} aria-current={current(site.docsUrl)}>Docs</a></li>
       </ul>
       <a class="btn btn-primary btn-block" href={url('/demo/')}>Book a demo</a>
     </div>
